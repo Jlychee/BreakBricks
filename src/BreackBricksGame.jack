@@ -1,0 +1,68 @@
+class BreackBricksGame {
+	field Ball ball;
+	field Paddle paddle;
+	field Array bricks;
+	field int bricksCount;
+	field int bricksLine;
+
+	constructor BreackBricksGame new() {
+		var int i, j;
+		let ball = Ball.new(70, 40, 2, 2);
+		let paddle = Paddle.new(70, 240);
+		let bricksCount = 17;
+
+		let bricks = Array.new(bricksCount);
+		
+		let j = 0;
+		while (j < 1) {
+			let i = 0;
+			while (i < 17) {
+				let bricks[i + (j * 17)] = Brick.new(5 + (i * 30), 10 + (j * 10));
+				let i = i + 1;
+			}
+			let j = j + 1;
+		}
+		return this;
+	}
+
+	method void dispose() {
+		 do ball.dispose();
+		 do paddle.dispose();
+		 do Memory.deAlloc(this);
+		 return;
+	}
+
+	method void run() {
+		var char key;
+		var boolean exit;
+		let exit = false;
+
+		while (true) {
+			let key = Keyboard.keyPressed();
+			 if (key = 81)  { let exit = true; }
+			 do ball.move();
+			 do paddle.move();
+			 do ball.checkCollision(paddle, bricks, bricksCount);
+			 do checkGameOver(ball);
+			 do Sys.wait(10);
+		}
+		return;
+	}
+
+	method void checkGameOver(Ball ball) {
+		var int ballY;
+		let ballY = ball.getY();
+		if ((ballY > 250)) {
+			do dispose();
+			do Screen.clearScreen();
+			do Screen.drawLine(100, 50, 200, 50);
+			while (true) {
+				if (Keyboard.keyPressed() = 32) {
+					do Screen.clearScreen();
+					do Main.main();
+				}
+			}
+		}
+		return;
+	}
+}

@@ -1,0 +1,24 @@
+class Brick {
+	field int x, y;
+
+	constructor Brick new(int Ax, int Ay) {
+		let x = Ax;
+		let y = Ay;
+		do draw();
+		return this;
+	}
+
+	method void dispose() {
+		 do Memory.deAlloc(this);
+		 return;
+	}
+
+	method void draw() {
+		do Screen.setColor(true);
+		do Screen.drawRectangle(x, y, x+20, y+5);
+		return;
+	}
+
+	method int getX() { return x; }
+	method int getY() { return y; }
+}

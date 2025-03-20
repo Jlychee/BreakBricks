@@ -1,0 +1,40 @@
+class Paddle {
+	field int x, y;
+
+	constructor Paddle new(int Ax, int Ay) {
+		let x = Ax;
+		let y = Ay;
+		do draw();
+		return this;
+	}
+
+	method void move() {
+		do Screen.setColor(false);
+        do Screen.drawRectangle(x, y, x + 20, y + 3);
+		if (Keyboard.keyPressed() = 130) { let x = x - 2; }
+		if (Keyboard.keyPressed() = 132) {let x = x + 2; }
+        do Screen.setColor(true);
+        do Screen.drawRectangle(x, y, x+20, y+3);
+		return;
+	}
+
+	method void dispose() {
+		 do Memory.deAlloc(this);
+		 return;
+	}
+
+	method void erase() {
+      do Screen.setColor(false);
+      do Screen.drawRectangle(x, y, x+20, y+3);
+      return;
+   }
+
+	method void draw() {
+		 do Screen.setColor(true);
+		 do Screen.drawRectangle(x, y, x+20, y+3);
+		 return;
+	}
+
+	method int getX() { return x; }
+	method int getY() { return y; }
+}

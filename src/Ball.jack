@@ -1,0 +1,62 @@
+class Ball {
+	field int x, y, dx, dy;
+
+	constructor Ball new(int Ax, int Ay, int ADX, int ADY) {
+		let x = Ax;
+		let y = Ay;
+		let dx = ADX;
+		let dy = ADY;
+		do draw();
+		return this;
+	}
+
+	method void dispose() {
+		 do Memory.deAlloc(this);
+		 return;
+	}
+
+	method void erase() {
+      do Screen.setColor(false);
+      do Screen.drawCircle(x, y, 3);
+      return;
+   }
+
+	method void draw() {
+		 do Screen.setColor(true);
+		 do Screen.drawCircle(x, y, 3);
+		 return;
+	}
+
+	method void move() {
+		do erase();
+
+		if ((x < 5) | (x > 506)) {let dx = -dx; }
+		if ((y < 5)) {let dy = -dy; }
+
+		let x = x + dx;
+		let y = y + dy;
+
+		do draw();
+
+		return;
+	}
+
+	method void checkCollision(Paddle p, Array bricks, int bricksCount) {
+		var int paddleX, paddleY;
+		var int i;
+		var Brick brick;
+		var int brickX, brickY;
+		let paddleX = p.getX();
+		let paddleY = p.getY();
+		if ((y > (paddleY - 2)) & (y < (paddleY + 2)) & (x > paddleX) & (x < (paddleX + 20))) {
+			let dy = -dy;
+		}		
+
+		// Как-то сделать проверку, что мячик коснулся блока, сделать отскок мяча + удалить блок (понятия не имею, как сделать)   
+		
+		return;
+	}
+
+	method int getX() { return x; }
+	method int getY() { return y; }
+}

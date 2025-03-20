@@ -1,0 +1,174 @@
+function BreackBricksGame.new 2
+push constant 5
+call Memory.alloc 1
+pop pointer 0
+push constant 70
+push constant 40
+push constant 2
+push constant 2
+call Ball.new 4
+pop this 0
+push constant 70
+push constant 240
+call Paddle.new 2
+pop this 1
+push constant 17
+pop this 3
+push this 3
+call Array.new 1
+pop this 2
+push constant 0
+pop local 1
+label WHILE_EXP0
+push local 1
+push constant 1
+lt
+not
+if-goto WHILE_END0
+push constant 0
+pop local 0
+label WHILE_EXP1
+push local 0
+push constant 17
+lt
+not
+if-goto WHILE_END1
+push local 0
+push local 1
+push constant 17
+call Math.multiply 2
+add
+push this 2
+add
+push constant 5
+push local 0
+push constant 30
+call Math.multiply 2
+add
+push constant 10
+push local 1
+push constant 10
+call Math.multiply 2
+add
+call Brick.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP1
+label WHILE_END1
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP0
+label WHILE_END0
+push pointer 0
+return
+function BreackBricksGame.dispose 0
+push argument 0
+pop pointer 0
+push this 0
+call Ball.dispose 1
+pop temp 0
+push this 1
+call Paddle.dispose 1
+pop temp 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function BreackBricksGame.run 2
+push argument 0
+pop pointer 0
+push constant 0
+pop local 1
+label WHILE_EXP0
+push constant 0
+not
+not
+if-goto WHILE_END0
+call Keyboard.keyPressed 0
+pop local 0
+push local 0
+push constant 81
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+pop local 1
+label IF_FALSE0
+push this 0
+call Ball.move 1
+pop temp 0
+push this 1
+call Paddle.move 1
+pop temp 0
+push this 0
+push this 1
+push this 2
+push this 3
+call Ball.checkCollision 4
+pop temp 0
+push pointer 0
+push this 0
+call BreackBricksGame.checkGameOver 2
+pop temp 0
+push constant 10
+call Sys.wait 1
+pop temp 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function BreackBricksGame.checkGameOver 1
+push argument 0
+pop pointer 0
+push argument 1
+call Ball.getY 1
+pop local 0
+push local 0
+push constant 250
+gt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push pointer 0
+call BreackBricksGame.dispose 1
+pop temp 0
+call Screen.clearScreen 0
+pop temp 0
+push constant 100
+push constant 50
+push constant 200
+push constant 50
+call Screen.drawLine 4
+pop temp 0
+label WHILE_EXP0
+push constant 0
+not
+not
+if-goto WHILE_END0
+call Keyboard.keyPressed 0
+push constant 32
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+call Screen.clearScreen 0
+pop temp 0
+call Main.main 0
+pop temp 0
+label IF_FALSE1
+goto WHILE_EXP0
+label WHILE_END0
+label IF_FALSE0
+push constant 0
+return
