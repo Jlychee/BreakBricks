@@ -1,9 +1,9 @@
 class Brick {
-	field int x, y;
+	field int posX, posY;
 
-	constructor Brick new(int Ax, int Ay) {
-		let x = Ax;
-		let y = Ay;
+	constructor Brick new(int startX, int startY) {
+		let posX = startX;
+        let posY = startY;
 		do draw();
 		return this;
 	}
@@ -15,10 +15,10 @@ class Brick {
 
 	method void draw() {
 		do Screen.setColor(true);
-		do Screen.drawRectangle(x, y, x+20, y+5);
+		do Screen.drawRectangle(posX, posY, posX + 20, posY + 5);
 		return;
 	}
 
-	method int getX() { return x; }
-	method int getY() { return y; }
+	method int getX() { return posX; }
+    method int getY() { return posY; }
 }

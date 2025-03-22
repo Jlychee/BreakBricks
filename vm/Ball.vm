@@ -93,7 +93,7 @@ call Ball.draw 1
 pop temp 0
 push constant 0
 return
-function Ball.checkCollision 6
+function Ball.checkPaddleCollision 6
 push argument 0
 pop pointer 0
 push argument 1
@@ -116,10 +116,12 @@ and
 push this 0
 push local 0
 gt
+push constant 2
+sub
 and
 push this 0
 push local 0
-push constant 20
+push constant 25
 add
 lt
 and
@@ -129,6 +131,9 @@ label IF_TRUE0
 push this 3
 neg
 pop this 3
+push argument 4
+call Counter.add 1
+pop temp 0
 label IF_FALSE0
 push constant 0
 return

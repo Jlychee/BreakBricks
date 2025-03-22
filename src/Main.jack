@@ -1,3 +1,4 @@
+// Просто создаем экземпляр игры, запускаем, и отчищаем
 class Main {
 	function void main() {
 		 var BreackBricksGame game;

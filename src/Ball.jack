@@ -1,62 +1,70 @@
 class Ball {
-	field int x, y, dx, dy;
+	field int posX, posY, speedX, speedY;
 
-	constructor Ball new(int Ax, int Ay, int ADX, int ADY) {
-		let x = Ax;
-		let y = Ay;
-		let dx = ADX;
-		let dy = ADY;
+	constructor Ball new(int startX, int startY, int velocityX, int velocityY) {
+		let posX = startX;
+        let posY = startY;
+        let speedX = velocityX;
+        let speedY = velocityY;
 		do draw();
 		return this;
 	}
 
+	// Освобожднеие памяти
 	method void dispose() {
 		 do Memory.deAlloc(this);
 		 return;
 	}
-
+	
+	// Стираем мяч
 	method void erase() {
       do Screen.setColor(false);
-      do Screen.drawCircle(x, y, 3);
+      do Screen.drawCircle(posX, posY, 3);
       return;
    }
 
+	// Рисуем мяч
 	method void draw() {
 		 do Screen.setColor(true);
-		 do Screen.drawCircle(x, y, 3);
+		 do Screen.drawCircle(posX, posY, 3);
 		 return;
 	}
 
+	// Движение мяча
 	method void move() {
 		do erase();
 
-		if ((x < 5) | (x > 506)) {let dx = -dx; }
-		if ((y < 5)) {let dy = -dy; }
+		if ((posX < 5) | (posX > 506)) { let speedX = -speedX; }
+        if (posY < 5) { let speedY = -speedY; }
 
-		let x = x + dx;
-		let y = y + dy;
+		let posX = posX + speedX;
+        let posY = posY + speedY;
 
 		do draw();
 
 		return;
 	}
 
-	method void checkCollision(Paddle p, Array bricks, int bricksCount) {
+	// Проверка столкновения мяча с платформой
+	method void checkPaddleCollision(Paddle p, Array bricks, int bricksCount, Counter counter) {
 		var int paddleX, paddleY;
 		var int i;
 		var Brick brick;
 		var int brickX, brickY;
+
 		let paddleX = p.getX();
 		let paddleY = p.getY();
-		if ((y > (paddleY - 2)) & (y < (paddleY + 2)) & (x > paddleX) & (x < (paddleX + 20))) {
-			let dy = -dy;
+
+		if ((posY > (paddleY - 2)) & (posY < (paddleY + 2)) & (posX > paddleX - 2) & (posX < (paddleX + 25))) {
+			let speedY = -speedY;
+			do counter.add(); // (перенести логику счетчика в проверку столкновения с блоком)
 		}		
 
-		// Как-то сделать проверку, что мячик коснулся блока, сделать отскок мяча + удалить блок (понятия не имею, как сделать)   
+		// TODO: Как-то сделать проверку, что мячик коснулся блока, сделать отскок мяча + удалить блок (понятия не имею, как сделать)   
 		
 		return;
 	}
 
-	method int getX() { return x; }
-	method int getY() { return y; }
+	method int getX() { return posX; }
+    method int getY() { return posY; }
 }
