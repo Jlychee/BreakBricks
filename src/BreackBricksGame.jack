@@ -2,40 +2,31 @@
 class BreackBricksGame {
 	field Ball ball;
 	field Paddle paddle;
-	field Array bricks;
+	field Bricks bricks;
 	field Counter counter;
 	field int bricksCount;
 
 	constructor BreackBricksGame new() {
-		var int i, j;
-		let ball = Ball.new(40, 40, 2, 2);
+		let ball = Ball.new(40, 70, 2, 2);
 		let paddle = Paddle.new(70, 235);
 		let bricksCount = 17;
 		let counter = Counter.new();
+		let bricks = Bricks.new(bricksCount);
 
 		do Output.moveCursor(22,0);
-	    do Output.printString("Score: 0");
+		do Output.printString("Score: 0");
 
-		let bricks = Array.new(bricksCount);
-		
-		// Заполнение массива блоков
-		let j = 0;
-		while (j < 1) {
-			let i = 0;
-			while (i < bricksCount) {
-				let bricks[i + (j * bricksCount)] = Brick.new(5 + (i * 30), 10 + (j * 10));
-				let i = i + 1;
-			}
-			let j = j + 1;
-		}
+		let bricks = bricks.getBricks();
 		return this;
-	}
+  }
+
 
 	// Освобождение памяти
 	method void dispose() {
 		 do ball.dispose();
 		 do paddle.dispose();
 		 do counter.dispose();
+		 do bricks.dispose();
 		 do Memory.deAlloc(this);
 		 return;
 	}
@@ -52,11 +43,13 @@ class BreackBricksGame {
 			 do counter.draw();
 			 do ball.move();
 			 do paddle.move();
-			 do ball.checkPaddleCollision(paddle, bricks, bricksCount, counter);
+			 do ball.checkPaddleCollision(paddle);
+			 do ball.checkBrickCollision(bricks, bricksCount, counter);
 			 do checkGameOver(ball);
 			 do Sys.wait(10);
 		}
 		if (exit) {
+			do dispose();
 			do Screen.clearScreen();
             do Output.moveCursor(10,27);
 	        do Output.printString("well go away :(");

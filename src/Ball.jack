@@ -46,7 +46,7 @@ class Ball {
 	}
 
 	// Проверка столкновения мяча с платформой
-	method void checkPaddleCollision(Paddle p, Array bricks, int bricksCount, Counter counter) {
+	method void checkPaddleCollision(Paddle p) {
 		var int paddleX, paddleY;
 		var int i;
 		var Brick brick;
@@ -55,15 +55,43 @@ class Ball {
 		let paddleX = p.getX();
 		let paddleY = p.getY();
 
-		if ((posY > (paddleY - 2)) & (posY < (paddleY + 2)) & (posX > paddleX - 2) & (posX < (paddleX + 25))) {
+		if ((posY > (paddleY - 2)) & (posY < (paddleY + 2)) & (posX > (paddleX - 2)) & (posX < (paddleX + 25))) {
 			let speedY = -speedY;
-			do counter.add(); // (перенести логику счетчика в проверку столкновения с блоком)
 		}		
 
 		// TODO: Как-то сделать проверку, что мячик коснулся блока, сделать отскок мяча + удалить блок (понятия не имею, как сделать)   
 		
 		return;
 	}
+
+
+	// хуйня ебаная, которая не работает, почините пж, я его того ಥ_ಥ ಥ_ಥ ಥ_ಥ ಥ_ಥ ಥ_ಥ ಥ_ಥ ಥ_ಥ ಥ_ಥ ಥ_ಥ ಥ_ಥ ಥ_ಥ ಥ_ಥ ಥ_ಥ ಥ_ಥ ಥ_ಥ
+	 method void checkBrickCollision(Array bricks, int bricksCount, Counter counter) {
+        var int i;
+        var Brick brick;
+        var int brickX, brickY;
+		var Counter counter;
+
+		let counter = Counter.new();
+
+        let i = 0;
+        while (i < bricksCount) {
+            let brick = bricks[i];
+            let brickX = brick.getX();
+            let brickY = brick.getY();
+
+
+            if ((posY > (brickY - 2)) & (posY < (brickY + 2)) & (posX > (brickX - 2)) & (posX < (brickX + 25))) {
+                let speedY = -speedY;
+                do brick.erase();
+                do counter.add();
+            }
+
+            let i = i + 1;
+        }
+
+        return;
+    }
 
 	method int getX() { return posX; }
     method int getY() { return posY; }

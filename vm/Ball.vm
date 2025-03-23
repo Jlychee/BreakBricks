@@ -115,9 +115,9 @@ lt
 and
 push this 0
 push local 0
-gt
 push constant 2
 sub
+gt
 and
 push this 0
 push local 0
@@ -131,10 +131,76 @@ label IF_TRUE0
 push this 3
 neg
 pop this 3
-push argument 4
+label IF_FALSE0
+push constant 0
+return
+function Ball.checkBrickCollision 5
+push argument 0
+pop pointer 0
+call Counter.new 0
+pop argument 3
+push constant 0
+pop local 0
+label WHILE_EXP0
+push local 0
+push argument 2
+lt
+not
+if-goto WHILE_END0
+push local 0
+push argument 1
+add
+pop pointer 1
+push that 0
+pop local 1
+push local 1
+call Brick.getX 1
+pop local 2
+push local 1
+call Brick.getY 1
+pop local 3
+push this 1
+push local 3
+push constant 2
+sub
+gt
+push this 1
+push local 3
+push constant 2
+add
+lt
+and
+push this 0
+push local 2
+push constant 2
+sub
+gt
+and
+push this 0
+push local 2
+push constant 25
+add
+lt
+and
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 3
+neg
+pop this 3
+push local 1
+call Brick.erase 1
+pop temp 0
+push argument 3
 call Counter.add 1
 pop temp 0
 label IF_FALSE0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
 push constant 0
 return
 function Ball.getX 0

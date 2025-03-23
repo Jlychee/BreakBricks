@@ -1,0 +1,32 @@
+class Bricks{
+    field Array bricks;
+    field int bricksCountt;
+
+    constructor Bricks new(int bricksCount){
+        let bricksCountt = bricksCount;
+        let bricks = Array.new(bricksCountt);
+        do fillTheArray();
+        return this;
+    }
+
+	method void dispose() {
+		do Memory.deAlloc(this);
+		 return;
+	}
+
+    method void fillTheArray(){
+        var int i, j;
+        let j = 0;
+    	while (j < 1) {
+      		let i = 0;
+      		while (i < bricksCountt) {
+        		let bricks[i + (j * bricksCountt)] = Brick.new(5 + (i * 30), 10 + (j * 10));
+        		let i = i + 1;
+      		}
+      		let j = j + 1;
+    	}
+        return;
+    }
+
+    method Array getBricks() { return bricks; }
+}
