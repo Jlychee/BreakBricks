@@ -5,6 +5,7 @@ class BreackBricksGame {
 	field Array bricks;
 	field Counter counter;
 	field int bricksCount;
+	field int rowCount;
 
 	constructor BreackBricksGame new() {
 		var int i, j;
@@ -12,6 +13,7 @@ class BreackBricksGame {
 		let paddle = Paddle.new(70, 235);
 		let bricksCount = 17;
 		let counter = Counter.new();
+		let rowCount = 1;
 
 		do Output.moveCursor(22,0);
 	    do Output.printString("Score: 0");
@@ -20,7 +22,7 @@ class BreackBricksGame {
 		
 		// Заполнение массива блоков
 		let j = 0;
-		while (j < 1) {
+		while (j < rowCount) {
 			let i = 0;
 			while (i < bricksCount) {
 				let bricks[i + (j * bricksCount)] = Brick.new(5 + (i * 30), 10 + (j * 10));
@@ -71,7 +73,14 @@ class BreackBricksGame {
 		let ballY = ball.getY();
 		if ((ballY > 250)) {
 			do dispose();
-			do Screen.clearScreen();
+			do WriteGameOver();
+		}
+		return;
+	}
+
+	method void WriteGameOver() 
+	{
+		do Screen.clearScreen();
 			do Output.moveCursor(11,15);
 	        do Output.printString("LOOSER");
 			do Output.moveCursor(12,15);
@@ -82,7 +91,5 @@ class BreackBricksGame {
 					do Main.main();
 				}
 			}
-		}
-		return;
 	}
 }
