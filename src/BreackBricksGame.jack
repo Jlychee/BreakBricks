@@ -1,17 +1,18 @@
-// TODO: В этом классе надо жестко навести порядок, а то это кошмар
+// TODO: Примести в порядок код, чтобы выглядело все красивенько, и все методы были там, где они логически должны находиться
 class BreackBricksGame {
 	field Ball ball;
 	field Paddle paddle;
 	field Bricks bricks;
 	field Counter counter;
-	field int bricksCount;
+	field int rowsCount, bricksInRowCount;
 
 	constructor BreackBricksGame new() {
 		let ball = Ball.new(40, 70, 2, 2);
 		let paddle = Paddle.new(70, 235);
-		let bricksCount = 17;
+		let rowsCount = 2;
+		let bricksInRowCount = 17;
 		let counter = Counter.new();
-		let bricks = Bricks.new(bricksCount);
+		let bricks = Bricks.new(rowsCount, bricksInRowCount);
 
 		do Output.moveCursor(22,0);
 		do Output.printString("Score: 0");
@@ -44,7 +45,7 @@ class BreackBricksGame {
 			 do ball.move();
 			 do paddle.move();
 			 do ball.checkPaddleCollision(paddle);
-			 do ball.checkBrickCollision(bricks, bricksCount, counter);
+			 do ball.checkBrickCollision(bricks, rowsCount, bricksInRowCount, counter);
 			 do checkGameOver(ball);
 			 do Sys.wait(10);
 		}

@@ -1,3 +1,5 @@
+// Повыносить методы туда, где они будут логично смотреться, почистить код или что-то такое
+
 class Ball {
 	field int posX, posY, speedX, speedY;
 
@@ -48,48 +50,49 @@ class Ball {
 	// Проверка столкновения мяча с платформой
 	method void checkPaddleCollision(Paddle p) {
 		var int paddleX, paddleY;
-		var int i;
-		var Brick brick;
-		var int brickX, brickY;
 
 		let paddleX = p.getX();
 		let paddleY = p.getY();
 
 		if ((posY > (paddleY - 2)) & (posY < (paddleY + 2)) & (posX > (paddleX - 2)) & (posX < (paddleX + 25))) {
 			let speedY = -speedY;
-		}		
-
-		// TODO: Как-то сделать проверку, что мячик коснулся блока, сделать отскок мяча + удалить блок (понятия не имею, как сделать)   
-		
+		}				
 		return;
 	}
 
-
-	// хуйня ебаная, которая не работает, почините пж, я его того ಥ_ಥ ಥ_ಥ ಥ_ಥ ಥ_ಥ ಥ_ಥ ಥ_ಥ ಥ_ಥ ಥ_ಥ ಥ_ಥ ಥ_ಥ ಥ_ಥ ಥ_ಥ ಥ_ಥ ಥ_ಥ ಥ_ಥ
-	 method void checkBrickCollision(Array bricks, int bricksCount, Counter counter) {
-        var int i;
+	// Проверка столкновения мяча с блоком
+	 method void checkBrickCollision(Array bricks, int rowsCount, int bricksInRowCount, Counter counter) {
+        var int i, j;
         var Brick brick;
         var int brickX, brickY;
-		var Counter counter;
+		var int nextPosX, nextPosY;
 
-		let counter = Counter.new();
+		let j = 0;
+		while (j < rowsCount) {
+			let i = 0;
+			while (i < bricksInRowCount) {
+				let brick = bricks[i + (j * bricksInRowCount)];
 
-        let i = 0;
-        while (i < bricksCount) {
-            let brick = bricks[i];
-            let brickX = brick.getX();
-            let brickY = brick.getY();
+				if (~(brick = null)) {
+					let brickX = brick.getX();
+					let brickY = brick.getY();
 
-
-            if ((posY > (brickY - 2)) & (posY < (brickY + 2)) & (posX > (brickX - 2)) & (posX < (brickX + 25))) {
-                let speedY = -speedY;
-                do brick.erase();
-                do counter.add();
-            }
-
-            let i = i + 1;
-        }
-
+					let nextPosX = posX + speedX;
+                	let nextPosY = posY + speedY;
+						
+					if (((nextPosY + 2) > brickY) & (nextPosY < (brickY + 2)) &
+                    ((nextPosX + 2) > brickX) & (nextPosX < (brickX + 25))) {
+						let speedY = -speedY;
+						do brick.erase();
+						do brick.dispose();
+						do counter.add();
+						let bricks[i + (j * bricksInRowCount)] = null;
+					}
+				}
+				let i = i + 1;
+			}
+			let j = j + 1;
+		}
         return;
     }
 

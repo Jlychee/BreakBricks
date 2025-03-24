@@ -1,11 +1,9 @@
 class Bricks{
     field Array bricks;
-    field int bricksCountt;
 
-    constructor Bricks new(int bricksCount){
-        let bricksCountt = bricksCount;
-        let bricks = Array.new(bricksCountt);
-        do fillTheArray();
+    constructor Bricks new(int rowsCount, int bricksInRowCount){
+        let bricks = Array.new(rowsCount * bricksInRowCount);
+        do fillTheArray(rowsCount, bricksInRowCount);
         return this;
     }
 
@@ -14,13 +12,13 @@ class Bricks{
 		 return;
 	}
 
-    method void fillTheArray(){
+    method void fillTheArray(int rowsCount, int bricksInRowCount){
         var int i, j;
         let j = 0;
-    	while (j < 1) {
+    	while (j < rowsCount) {
       		let i = 0;
-      		while (i < bricksCountt) {
-        		let bricks[i + (j * bricksCountt)] = Brick.new(5 + (i * 30), 10 + (j * 10));
+      		while (i < bricksInRowCount) {
+        		let bricks[i + (j * bricksInRowCount)] = Brick.new(5 + (i * 30), 10 + (j * 10));
         		let i = i + 1;
       		}
       		let j = j + 1;

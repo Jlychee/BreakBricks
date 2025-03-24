@@ -1,13 +1,11 @@
 function Brick.new 0
-push constant 3
+push constant 2
 call Memory.alloc 1
 pop pointer 0
 push argument 0
 pop this 0
 push argument 1
 pop this 1
-push constant 0
-pop this 2
 push pointer 0
 call Brick.draw 1
 pop temp 0
@@ -57,14 +55,6 @@ add
 call Screen.drawRectangle 4
 pop temp 0
 push constant 0
-not
-pop this 2
-push constant 0
-return
-function Brick.getIsDestroyed 0
-push argument 0
-pop pointer 0
-push this 2
 return
 function Brick.getX 0
 push argument 0

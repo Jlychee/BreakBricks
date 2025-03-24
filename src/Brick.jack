@@ -1,11 +1,9 @@
 class Brick {
 	field int posX, posY;
-	field bool isDestroyed;
 
 	constructor Brick new(int startX, int startY) {
 		let posX = startX;
         let posY = startY;
-		let isDestroyed = false;
 		do draw();
 		return this;
 	}
@@ -24,11 +22,9 @@ class Brick {
 	method void erase() {
 		do Screen.setColor(false);
 		do Screen.drawRectangle(posX, posY, posX + 20, posY + 5);
-		let isDestroyed = true;
 		return;
 	}
 
-	method bool getIsDestroyed() { return isDestroyed; }
 	method int getX() { return posX; }
     method int getY() { return posY; }
 }
