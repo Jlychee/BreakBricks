@@ -17,6 +17,9 @@ class BreackBricksGame {
 		do Output.moveCursor(22,0);
 		do Output.printString("Score: 0");
 
+		do Output.moveCursor(22,30);
+		do Output.printString("Use -> and <- to move platform");
+
 		let bricks = bricks.getBricks();
 		return this;
   }
@@ -59,24 +62,31 @@ class BreackBricksGame {
 	}
 
 	// Проверка на то, что игрок проиграл
-	// Пока делала счетчик натыкала в экране поражения текст, но, как будто бы стоит его в метод выделить и вообще тут прибраться в коде надо
 	method void checkGameOver(Ball ball) {
 		var int ballY;
 		let ballY = ball.getY();
 		if ((ballY > 250)) {
 			do dispose();
-			do Screen.clearScreen();
-			do Output.moveCursor(11,15);
-	        do Output.printString("LOOSER");
-			do Output.moveCursor(12,15);
-			do Output.printString("stop embarrassing yourself and go train");
+			do writeGameOver();
 			while (true) {
-				if (Keyboard.keyPressed() = 32) {
-					do Screen.clearScreen();
-					do Main.main();
-				}
+			if (Keyboard.keyPressed() = 32) {
+				do Screen.clearScreen();
+				do Main.main();
 			}
 		}
+		}
+		return;
+	}
+
+    // вынесли написание окончания игры в отдельный метод
+	method void writeGameOver() {
+		do Screen.clearScreen();
+		do Output.moveCursor(11,15);
+	    do Output.printString("LOOSER");
+		do Output.moveCursor(12,15);
+		do Output.printString("Stop embarrassing yourself and go train");
+		do Output.moveCursor(15,15);
+		do Output.printString("(Press Tab to start again)");
 		return;
 	}
 }
