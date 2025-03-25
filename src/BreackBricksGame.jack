@@ -91,5 +91,6 @@ class BreackBricksGame {
 					do Main.main();
 				}
 			}
+		return;
 	}
 }
