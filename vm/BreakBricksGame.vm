@@ -406,13 +406,13 @@ push argument 4
 add
 pop local 6
 push local 6
-push constant 2
+push this 6
 add
 push local 4
 gt
 push local 6
 push local 4
-push constant 2
+push this 6
 add
 lt
 and

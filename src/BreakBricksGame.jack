@@ -131,7 +131,7 @@ class BreakBricksGame {
 					let nextPosX = posX + speedX;
                 	let nextPosY = posY + speedY;
 						
-					if (((nextPosY + 2) > brickY) & (nextPosY < (brickY + 2)) &
+					if (((nextPosY + speed) > brickY) & (nextPosY < (brickY + speed)) &
                     ((nextPosX + 2) > brickX) & (nextPosX < (brickX + 25))) {
 						let speedY = -speedY;
 						do ball.setSpeedY(speedY);
