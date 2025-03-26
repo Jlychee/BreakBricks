@@ -1,4 +1,4 @@
-// 32 - Space
+// 129 - backspace
 // 140 - Esc
 class BreakBricksGame {
 	field Ball ball;
@@ -45,10 +45,10 @@ class BreakBricksGame {
 		 return;
 	}
 
-	// Ждём, когда игрок нажмёт Space и начинаем игру заново
+	// Ждём, когда игрок нажмёт backspace и начинаем игру заново
 	method void waitRestart() {
 		while (true) {
-				if (Keyboard.keyPressed() = 32) {
+				if (Keyboard.keyPressed() = 129) {
 					do Screen.clearScreen();
 					do Main.main();
 				}
@@ -177,7 +177,7 @@ class BreakBricksGame {
 		do Output.moveCursor(12,15);
 		do Output.printString("Stop embarrassing yourself and go train");
 		do Output.moveCursor(15,15);
-		do Output.printString("(Press Space to embarrass yourself again)");
+		do Output.printString("(Press backspace to embarrass yourself again)");
 		return;
 	}
 
@@ -201,7 +201,7 @@ class BreakBricksGame {
 		do Output.moveCursor(12,15);
 		do Output.printString("You won");
 		do Output.moveCursor(15,15);
-		do Output.printString("(Press Space to start again)");
+		do Output.printString("(Press backspace to start again)");
 		return;
 	}
 }
