@@ -11,6 +11,8 @@ class BreackBricksGame {
 		let paddle = Paddle.new(70, 235);
 		let rowsCount = 2;
 		let bricksInRowCount = 17;
+		// let rowsCount = 1;
+		// let bricksInRowCount = 2;
 		let counter = Counter.new();
 		let bricks = Bricks.new(rowsCount, bricksInRowCount);
 
@@ -50,6 +52,7 @@ class BreackBricksGame {
 			 do ball.checkPaddleCollision(paddle);
 			 do ball.checkBrickCollision(bricks, rowsCount, bricksInRowCount, counter);
 			 do checkGameOver(ball);
+			 do checkWinning(counter);
 			 do Sys.wait(10);
 		}
 		if (exit) {
@@ -85,6 +88,34 @@ class BreackBricksGame {
 	    do Output.printString("LOOSER");
 		do Output.moveCursor(12,15);
 		do Output.printString("Stop embarrassing yourself and go train");
+		do Output.moveCursor(15,15);
+		do Output.printString("(Press Tab to start again)");
+		return;
+	}
+
+	method void checkWinning(Counter counter) {
+		var int bricksCount;
+		let bricksCount = rowsCount * bricksInRowCount;
+		if(counter = bricksCount) {
+			do dispose();
+			//do writeVictory();
+			do Output.printString("(Press Tab to start again)");
+			while (true) {
+				if (Keyboard.keyPressed() = 32) {
+					do Screen.clearScreen();
+					do Main.main();
+				}
+			}
+		}
+		return;
+	}
+
+	method void writeVictory() {
+		do Screen.clearScreen();
+		do Output.moveCursor(11,15);
+	    do Output.printString("CONGRATULATIONS!");
+		do Output.moveCursor(12,15);
+		do Output.printString("You won");
 		do Output.moveCursor(15,15);
 		do Output.printString("(Press Tab to start again)");
 		return;
