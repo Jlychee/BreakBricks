@@ -47,6 +47,7 @@ class Ball {
 		return;
 	}
 
+	// перенести в BreakBricksGame
 	// Проверка столкновения мяча с платформой
 	method void checkPaddleCollision(Paddle p) {
 		var int paddleX, paddleY;
@@ -60,6 +61,7 @@ class Ball {
 		return;
 	}
 
+	// перенести в BreakBricksGame
 	// Проверка столкновения мяча с блоком
 	 method void checkBrickCollision(Array bricks, int rowsCount, int bricksInRowCount, Counter counter) {
         var int i, j;

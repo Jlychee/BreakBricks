@@ -26,4 +26,6 @@ class Counter {
         do Output.printInt(count);
 		return;
 	}
+
+	method int getCount() { return count; }
 }
