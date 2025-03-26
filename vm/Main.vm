@@ -1,11 +1,11 @@
 function Main.main 1
-call BreackBricksGame.new 0
+call BreakBricksGame.new 0
 pop local 0
 push local 0
-call BreackBricksGame.run 1
+call BreakBricksGame.run 1
 pop temp 0
 push local 0
-call BreackBricksGame.dispose 1
+call BreakBricksGame.dispose 1
 pop temp 0
 push constant 0
 return

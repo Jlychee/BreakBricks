@@ -1,8 +1,8 @@
 // Просто создаем экземпляр игры, запускаем, и отчищаем
 class Main {
 	function void main() {
-		 var BreackBricksGame game;
-		 let game = BreackBricksGame.new();
+		 var BreakBricksGame game;
+		 let game = BreakBricksGame.new();
 		 do game.run();
 		 do game.dispose();
 		 return;
