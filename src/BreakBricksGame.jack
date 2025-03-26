@@ -1,4 +1,4 @@
-class BreackBricksGame {
+class BreakBricksGame {
 	field Ball ball;
 	field Paddle paddle;
 	field Bricks bricks;
@@ -8,7 +8,7 @@ class BreackBricksGame {
 	field int KEY_SPACE;
 	field int KEY_ESC;
 
-	constructor BreackBricksGame new() {
+	constructor BreakBricksGame new() {
 		let ball = Ball.new(40, 70, 2, 2);
 		let paddle = Paddle.new(70, 235);
 		let rowsCount = 2;
@@ -77,15 +77,72 @@ class BreackBricksGame {
 
 	// проверяем столкновение мяча с платформой/кирпичиками и не конец ли игры
 	method void checkAllConditions() {
-		
-		do ball.checkPaddleCollision(paddle);
-		do ball.checkBrickCollision(bricks, rowsCount, bricksInRowCount, counter);
+		var int posY, posX;
+		var int speedX, speedY;
+
+		let posX = ball.getX();
+		let posY = ball.getY();
+		let speedX = ball.getSpeedX();
+		let speedY = ball.getSpeedY();
+
+		do checkPaddleCollision(posX, posY, speedY);
+		do checkBrickCollision(posX, posY, speedX, speedY);
 		do checkGameOver(ball);
 		do checkWinning(counter);
 		do Sys.wait(10);
 		return;
-
 	}
+
+	// Проверка столкновения мяча с платформой
+	method void checkPaddleCollision(int posX, int posY, int speedY) {
+		var int paddleX, paddleY;
+		
+		let paddleX = paddle.getX();
+		let paddleY = paddle.getY();
+
+		if ((posY > (paddleY - 2)) & (posY < (paddleY + 2)) & (posX > (paddleX - 2)) & (posX < (paddleX + 25))) {
+			let speedY = -speedY;
+			do ball.setSpeedY(speedY);
+		}				
+		return;
+	}
+
+	// Проверка столкновения мяча с блоком
+	 method void checkBrickCollision(int posX, int posY, int speedX, int speedY) {
+        var int i, j;
+        var Brick brick;
+        var int brickX, brickY;
+		var int nextPosX, nextPosY;
+
+		let j = 0;
+		while (j < rowsCount) {
+			let i = 0;
+			while (i < bricksInRowCount) {
+				let brick = bricks[i + (j * bricksInRowCount)];
+
+				if (~(brick = null)) {
+					let brickX = brick.getX();
+					let brickY = brick.getY();
+
+					let nextPosX = posX + speedX;
+                	let nextPosY = posY + speedY;
+						
+					if (((nextPosY + 2) > brickY) & (nextPosY < (brickY + 2)) &
+                    ((nextPosX + 2) > brickX) & (nextPosX < (brickX + 25))) {
+						let speedY = -speedY;
+						do ball.setSpeedY(speedY);
+						do brick.erase();
+						do brick.dispose();
+						do counter.add();
+						let bricks[i + (j * bricksInRowCount)] = null;
+					}
+				}
+				let i = i + 1;
+			}
+			let j = j + 1;
+		}
+        return;
+    }
 
 	// Проверка на то, что игрок проиграл
 	method void checkGameOver(Ball ball) {

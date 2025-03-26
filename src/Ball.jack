@@ -45,55 +45,21 @@ class Ball {
 		return;
 	}
 
-	// Проверка столкновения мяча с платформой
-	method void checkPaddleCollision(Paddle p) {
-		var int paddleX, paddleY;
+	//геттеры
+	method int getX() { return posX; }
+    method int getY() { return posY; }
+	method int getSpeedY() { return speedY; }
+	method int getSpeedX() { return speedX; }
 
-		let paddleX = p.getX();
-		let paddleY = p.getY();
-
-		if ((posY > (paddleY - 2)) & (posY < (paddleY + 2)) & (posX > (paddleX - 2)) & (posX < (paddleX + 25))) {
-			let speedY = -speedY;
-		}				
+	// сеттер скорости по Y
+	method void setSpeedY(int speed) { 
+		let speedY = speed;
 		return;
 	}
 
-	// Проверка столкновения мяча с блоком
-	 method void checkBrickCollision(Array bricks, int rowsCount, int bricksInRowCount, Counter counter) {
-        var int i, j;
-        var Brick brick;
-        var int brickX, brickY;
-		var int nextPosX, nextPosY;
-
-		let j = 0;
-		while (j < rowsCount) {
-			let i = 0;
-			while (i < bricksInRowCount) {
-				let brick = bricks[i + (j * bricksInRowCount)];
-
-				if (~(brick = null)) {
-					let brickX = brick.getX();
-					let brickY = brick.getY();
-
-					let nextPosX = posX + speedX;
-                	let nextPosY = posY + speedY;
-						
-					if (((nextPosY + 2) > brickY) & (nextPosY < (brickY + 2)) &
-                    ((nextPosX + 2) > brickX) & (nextPosX < (brickX + 25))) {
-						let speedY = -speedY;
-						do brick.erase();
-						do brick.dispose();
-						do counter.add();
-						let bricks[i + (j * bricksInRowCount)] = null;
-					}
-				}
-				let i = i + 1;
-			}
-			let j = j + 1;
-		}
-        return;
-    }
-
-	method int getX() { return posX; }
-    method int getY() { return posY; }
+	// сеттер скорости по X
+	method void setSpeedX(int speed) { 
+		let speedX = speed;
+		return;
+	}
 }
