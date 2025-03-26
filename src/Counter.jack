@@ -6,26 +6,25 @@ class Counter {
 		return this;
 	}
 
+	// Освобождение пямяти
 	method void dispose() {
 		 do Memory.deAlloc(this);
 		 return;
 	}
 
+	// Инкрементер
 	method void add() {
 		let count = count + 1 ;
 		return;
 	}
 
-	method void reset() {
-		let count = 0;
-		return;
-	}
-
+	// Рисуем счетчик
 	method void draw() {
 		do Output.moveCursor(22,7);
         do Output.printInt(count);
 		return;
 	}
 
+	// Геттер
 	method int getCount() { return count; }
 }

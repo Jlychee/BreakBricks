@@ -1,15 +1,13 @@
 function Paddle.new 0
-push constant 4
+push constant 3
 call Memory.alloc 1
 pop pointer 0
 push argument 0
 pop this 0
 push argument 1
 pop this 1
-push constant 130
+push argument 2
 pop this 2
-push constant 132
-pop this 3
 push pointer 0
 call Paddle.draw 1
 pop temp 0
@@ -22,7 +20,7 @@ push this 0
 push constant 7
 lt
 call Keyboard.keyPressed 0
-push this 2
+push constant 130
 eq
 and
 if-goto IF_TRUE0
@@ -35,7 +33,7 @@ push this 0
 push constant 480
 gt
 call Keyboard.keyPressed 0
-push this 3
+push constant 132
 eq
 and
 if-goto IF_TRUE1
@@ -48,24 +46,24 @@ push pointer 0
 call Paddle.erase 1
 pop temp 0
 call Keyboard.keyPressed 0
-push this 2
+push constant 130
 eq
 if-goto IF_TRUE2
 goto IF_FALSE2
 label IF_TRUE2
 push this 0
-push constant 2
+push this 2
 sub
 pop this 0
 label IF_FALSE2
 call Keyboard.keyPressed 0
-push this 3
+push constant 132
 eq
 if-goto IF_TRUE3
 goto IF_FALSE3
 label IF_TRUE3
 push this 0
-push constant 2
+push this 2
 add
 pop this 0
 label IF_FALSE3

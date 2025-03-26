@@ -19,11 +19,10 @@ call Memory.deAlloc 1
 pop temp 0
 push constant 0
 return
-function Brick.draw 0
+function Brick.erase 0
 push argument 0
 pop pointer 0
 push constant 0
-not
 call Screen.setColor 1
 pop temp 0
 push this 0
@@ -38,10 +37,11 @@ call Screen.drawRectangle 4
 pop temp 0
 push constant 0
 return
-function Brick.erase 0
+function Brick.draw 0
 push argument 0
 pop pointer 0
 push constant 0
+not
 call Screen.setColor 1
 pop temp 0
 push this 0

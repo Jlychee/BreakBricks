@@ -8,23 +8,27 @@ class Brick {
 		return this;
 	}
 
+	// Освобождение памяти
 	method void dispose() {
 		 do Memory.deAlloc(this);
 		 return;
 	}
 
-	method void draw() {
-		do Screen.setColor(true);
-		do Screen.drawRectangle(posX, posY, posX + 20, posY + 5);
-		return;
-	}
-
+	// Стираем блок
 	method void erase() {
 		do Screen.setColor(false);
 		do Screen.drawRectangle(posX, posY, posX + 20, posY + 5);
 		return;
 	}
 
+	// Рисуем блок
+	method void draw() {
+		do Screen.setColor(true);
+		do Screen.drawRectangle(posX, posY, posX + 20, posY + 5);
+		return;
+	}
+
+	// Геттеры
 	method int getX() { return posX; }
     method int getY() { return posY; }
 }

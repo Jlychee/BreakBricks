@@ -45,19 +45,19 @@ class Ball {
 		return;
 	}
 
-	//геттеры
+	// Геттеры
 	method int getX() { return posX; }
     method int getY() { return posY; }
 	method int getSpeedY() { return speedY; }
 	method int getSpeedX() { return speedX; }
 
-	// сеттер скорости по Y
+	// Сеттер скорости по Y
 	method void setSpeedY(int speed) { 
 		let speedY = speed;
 		return;
 	}
 
-	// сеттер скорости по X
+	// Сеттер скорости по X
 	method void setSpeedX(int speed) { 
 		let speedX = speed;
 		return;

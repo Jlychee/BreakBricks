@@ -23,13 +23,6 @@ add
 pop this 0
 push constant 0
 return
-function Counter.reset 0
-push argument 0
-pop pointer 0
-push constant 0
-pop this 0
-push constant 0
-return
 function Counter.draw 0
 push argument 0
 pop pointer 0

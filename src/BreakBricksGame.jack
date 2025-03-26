@@ -9,29 +9,27 @@ class BreakBricksGame {
 	field int speed;
 
 	constructor BreakBricksGame new() {
-		do start();
-		let ball = Ball.new(40, 70, 2, 2);
+		do startOfTheGame();
+
 		let ball = Ball.new(40, 70, speed, speed);
-		let paddle = Paddle.new(70, 235);
+		let paddle = Paddle.new(70, 235, speed);
 		let bricksInRowCount = 17;
 		let counter = Counter.new();
 		let bricks = Bricks.new(rowsCount, bricksInRowCount);
 
-		// вынести в метод бубубу
-		do Output.moveCursor(22,0);
-		do Output.printString("Score: 0");
-
-		do Output.moveCursor(22,30);
-		do Output.printString("Use -> and <- to move platform");
-
+		do writeInfoAboutGame();
+		
 		let bricks = bricks.getBricks();
 		return this;
   	}
 
-	method void start() {
+	// Начало игры: спрашиваем желаемую скорость мяча и количество рядов блоков
+	method void startOfTheGame() {
 		do Output.moveCursor(0, 0);
+
 		let speed = Keyboard.readInt("Enter ball speed: ");
 		let rowsCount = Keyboard.readInt("Enter the number of rows: ");
+
 		do Screen.clearScreen();
 		return;
 	}
@@ -47,7 +45,7 @@ class BreakBricksGame {
 		 return;
 	}
 
-	// ждём, когда игрок нажмёт Space и начинаем игру заново
+	// Ждём, когда игрок нажмёт Space и начинаем игру заново
 	method void waitRestart() {
 		while (true) {
 				if (Keyboard.keyPressed() = 32) {
@@ -81,7 +79,7 @@ class BreakBricksGame {
 		return;
 	}
 
-	// проверяем столкновение мяча с платформой/кирпичиками и не конец ли игры
+	// Проверяем столкновение мяча с платформой/кирпичиками и не конец ли игры
 	method void checkAllConditions() {
 		var int posY, posX;
 		var int speedX, speedY;
@@ -162,7 +160,16 @@ class BreakBricksGame {
 		return;
 	}
 
-    // говорим, что игрок проиграл
+	// Пишем информацию о текущем состоянии счета и подсказки 
+	method void writeInfoAboutGame() {
+		do Output.moveCursor(22,0);
+		do Output.printString("Score: 0");
+		do Output.moveCursor(22,30);
+		do Output.printString("Use -> and <- to move platform");
+		return;
+	}
+	
+    // Говорим, что игрок проиграл
 	method void writeGameOver() {
 		do Screen.clearScreen();
 		do Output.moveCursor(11,15);
@@ -170,23 +177,22 @@ class BreakBricksGame {
 		do Output.moveCursor(12,15);
 		do Output.printString("Stop embarrassing yourself and go train");
 		do Output.moveCursor(15,15);
-		do Output.printString("(Press Space to start again)");
+		do Output.printString("(Press Space to embarrass yourself again)");
 		return;
 	}
 
-	// проверяем, не победили ли мы
+	// Проверяем, не победили ли мы
 	method void checkWinning(Counter counter) {
 		var int bricksCount;
 		let bricksCount = rowsCount * bricksInRowCount;
 		if(counter.getCount() = bricksCount) {
 			do writeVictory();
 			do waitRestart();
-
 		}
 		return;
 	}
 
-	// поздравляем с победой
+	// Поздравляем с победой
 	method void writeVictory() {
 		do dispose();
 		do Screen.clearScreen();
