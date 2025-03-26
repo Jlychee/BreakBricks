@@ -1,9 +1,9 @@
 # :shipit: BreakBricks :shipit:
 
 
-### :8ball: *"Бильярд в квадратном мире",*
+### :8ball: *«Бильярд в квадратном мире»,*
 
-### :soccer: *"Футбол" (мяч и окно - идеальная связь) в обычном -*
+### :soccer: *«Футбол» (мяч и окно - идеальная связь) в обычном -*
 
  ### :pencil2: *Классика всех телефонных мини-игр,*
 
@@ -17,6 +17,6 @@
 ---
 ## Преимущества и достижения
 
-##### :construction_worker: Понятная структура с разбитыми на классы сущностями (Платформа, мяч, блок, блоки и сама игра)
+##### :construction_worker: Понятная структура с разбитыми на классы сущностями ([Платформа](https://github.com/Jlychee/BreakBricks/blob/main/src/Paddle.jack), [мяч](https://github.com/Jlychee/BreakBricks/blob/main/src/Ball.jack), [блок](https://github.com/Jlychee/BreakBricks/blob/main/src/Brick.jack), [блоки](https://github.com/Jlychee/BreakBricks/blob/main/src/Bricks.jack), [счётчик](https://github.com/Jlychee/BreakBricks/blob/main/src/Counter.jack), [игра](https://github.com/Jlychee/BreakBricks/blob/main/src/BreakBricksGame.jack))
 ##### :trident: Исчезновение всего блока при его касании мяча с продолжением движения мяча (см. метод checkBrickCollision [тут](https://github.com/Jlychee/BreakBricks/blob/main/src/Ball.jack))
 ##### :fire: Возможность настроить режим игры
