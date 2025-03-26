@@ -1,22 +1,26 @@
 class Paddle {
 	field int posX, posY;
+	field int KEY_LEFT;
+	field int KEY_RIGHT;
 
 	constructor Paddle new(int startX, int startY) {
 		let posX = startX;
         let posY = startY;
+		let KEY_LEFT = 130;
+		let KEY_RIGHT = 132;
 		do draw();
 		return this;
 	}
 
 	// Движение платформы
 	method void move() {
-		if ((posX < 7) & (Keyboard.keyPressed() = 130)) { return; } // Левая граница
-        if ((posX > 480) & (Keyboard.keyPressed() = 132)) { return; } // Правая граница
+		if ((posX < 7) & (Keyboard.keyPressed() = KEY_LEFT)) { return; } // Левая граница
+        if ((posX > 480) & (Keyboard.keyPressed() = KEY_RIGHT)) { return; } // Правая граница
 
 		do erase();
 
-		if (Keyboard.keyPressed() = 130) { let posX = posX - 2; } // Влево (клавиша 130)
-        if (Keyboard.keyPressed() = 132) { let posX = posX + 2; } // Вправо (клавиша 132)
+		if (Keyboard.keyPressed() = KEY_LEFT) { let posX = posX - 2; } // Движение влево
+        if (Keyboard.keyPressed() = KEY_RIGHT) { let posX = posX + 2; } // Движение вправо
 
 		do draw();
 		return;

@@ -1,10 +1,12 @@
-// TODO: Примести в порядок код, чтобы выглядело все красивенько, и все методы были там, где они логически должны находиться
 class BreackBricksGame {
 	field Ball ball;
 	field Paddle paddle;
 	field Bricks bricks;
 	field Counter counter;
 	field int rowsCount, bricksInRowCount;
+
+	field int KEY_SPACE;
+	field int KEY_ESC;
 
 	constructor BreackBricksGame new() {
 		let ball = Ball.new(40, 70, 2, 2);
@@ -13,6 +15,9 @@ class BreackBricksGame {
 		let bricksInRowCount = 17;
 		let counter = Counter.new();
 		let bricks = Bricks.new(rowsCount, bricksInRowCount);
+
+		let KEY_SPACE = 32;
+		let KEY_ESC = 140;
 
 		// вынести в метод бубубу
 		do Output.moveCursor(22,0);
@@ -36,6 +41,17 @@ class BreackBricksGame {
 		 return;
 	}
 
+	// ждём, когда игрок нажмёт Space и начинаем игру заново
+	method void waitRestart() {
+		while (true) {
+				if (Keyboard.keyPressed() = 32) {
+					do Screen.clearScreen();
+					do Main.main();
+				}
+			}
+		return;
+	}
+
 	// Пока не нажали escape, постоянно запускаем все методы проверок и движения
 	method void run() {
 		var char key;
@@ -44,16 +60,11 @@ class BreackBricksGame {
 
 		while (~exit) {
 			let key = Keyboard.keyPressed();
-			 if (key = 140)  { let exit = true; }
-			 // метод проверок
-			 do counter.draw();
-			 do ball.move();
-			 do paddle.move();
-			 do ball.checkPaddleCollision(paddle);
-			 do ball.checkBrickCollision(bricks, rowsCount, bricksInRowCount, counter);
-			 do checkGameOver(ball);
-			 do checkWinning(counter);
-			 do Sys.wait(10);
+			if (key = 140)  { let exit = true; }
+			do counter.draw();
+			do ball.move();
+			do paddle.move();
+			do checkAllConditions();
 		}
 		if (exit) {
 			do dispose();
@@ -64,6 +75,18 @@ class BreackBricksGame {
 		return;
 	}
 
+	// проверяем столкновение мяча с платформой/кирпичиками и не конец ли игры
+	method void checkAllConditions() {
+		
+		do ball.checkPaddleCollision(paddle);
+		do ball.checkBrickCollision(bricks, rowsCount, bricksInRowCount, counter);
+		do checkGameOver(ball);
+		do checkWinning(counter);
+		do Sys.wait(10);
+		return;
+
+	}
+
 	// Проверка на то, что игрок проиграл
 	method void checkGameOver(Ball ball) {
 		var int ballY;
@@ -71,18 +94,12 @@ class BreackBricksGame {
 		if ((ballY > 250)) {
 			do dispose();
 			do writeGameOver();
-			//wait restart
-			while (true) {
-			if (Keyboard.keyPressed() = 32) {
-				do Screen.clearScreen();
-				do Main.main();
-			}
-		}
+			do waitRestart();
 		}
 		return;
 	}
 
-    // вынесли написание окончания игры в отдельный метод
+    // говорим, что игрок проиграл
 	method void writeGameOver() {
 		do Screen.clearScreen();
 		do Output.moveCursor(11,15);
@@ -94,22 +111,18 @@ class BreackBricksGame {
 		return;
 	}
 
+	// проверяем, не победили ли мы
 	method void checkWinning(Counter counter) {
 		var int bricksCount;
 		let bricksCount = rowsCount * bricksInRowCount;
 		if(counter.getCount() = bricksCount) {
 			do writeVictory();
-			//wait restart
-			while (true) {
-				if (Keyboard.keyPressed() = 32) {
-					do Screen.clearScreen();
-					do Main.main();
-				}
-			}
+			do waitRestart();
 		}
 		return;
 	}
 
+	// поздравляем с победой
 	method void writeVictory() {
 		do dispose();
 		do Screen.clearScreen();
