@@ -1,11 +1,12 @@
 class Ball {
-	field int posX, posY, speedX, speedY;
+	field int posX, posY, speedX, speedY, speed;
 
 	constructor Ball new(int startX, int startY, int velocityX, int velocityY) {
 		let posX = startX;
         let posY = startY;
         let speedX = velocityX;
-        let speedY = velocityY;
+		let speedY = velocityY;
+		let speed = velocityX;
 		do draw();
 		return this;
 	}
@@ -34,8 +35,8 @@ class Ball {
 	method void move() {
 		do erase();
 
-		if ((posX < 5) | (posX > 506)) { let speedX = -speedX; }
-        if (posY < 5) { let speedY = -speedY; }
+		if (((posX + speed) < 5) | ((posX + speed) > 506)) { let speedX = -speedX; }
+        if ((posY + speed) < 5) { let speedY = -speedY; }
 
 		let posX = posX + speedX;
         let posY = posY + speedY;

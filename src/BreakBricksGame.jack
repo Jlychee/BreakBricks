@@ -11,7 +11,7 @@ class BreakBricksGame {
 	constructor BreakBricksGame new() {
 		do startOfTheGame();
 
-		let ball = Ball.new(40, 70, speed, speed);
+		let ball = Ball.new(45, 210, speed, speed);
 		let paddle = Paddle.new(70, 235, speed);
 		let bricksInRowCount = 17;
 		let counter = Counter.new();
@@ -27,8 +27,10 @@ class BreakBricksGame {
 	method void startOfTheGame() {
 		do Output.moveCursor(0, 0);
 
-		let speed = Keyboard.readInt("Enter ball speed: ");
-		let rowsCount = Keyboard.readInt("Enter the number of rows: ");
+		let speed = Keyboard.readInt("Enter ball speed (maximum permissible speed is 8): ");
+		if ((speed > 8)) { let speed = 8; }
+		let rowsCount = Keyboard.readInt("Enter the number of rows (maximum number of rows is 19): ");
+		if ((rowsCount > 19)) {let rowsCount = 19; }
 
 		do Screen.clearScreen();
 		return;
@@ -104,7 +106,7 @@ class BreakBricksGame {
 		let paddleX = paddle.getX();
 		let paddleY = paddle.getY();
 
-		if ((posY > (paddleY - 2)) & (posY < (paddleY + 2)) & (posX > (paddleX - 2)) & (posX < (paddleX + 25))) {
+		if ((posY > (paddleY - speed)) & (posY < (paddleY + speed)) & (posX > (paddleX - 2)) & (posX < (paddleX + 25))) {
 			let speedY = -speedY;
 			do ball.setSpeedY(speedY);
 		}				
@@ -152,7 +154,7 @@ class BreakBricksGame {
 	method void checkGameOver(Ball ball) {
 		var int ballY;
 		let ballY = ball.getY();
-		if (ballY > 249) {
+		if ((ballY + speed) > 249) {
 			do dispose();
 			do writeGameOver();
 			do waitRestart();
