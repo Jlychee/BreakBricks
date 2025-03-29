@@ -18,5 +18,5 @@
 ## Преимущества и достижения
 
 ##### :construction_worker: Понятная структура с разбитыми на классы сущностями ([Платформа](https://github.com/Jlychee/BreakBricks/blob/main/src/Paddle.jack), [мяч](https://github.com/Jlychee/BreakBricks/blob/main/src/Ball.jack), [блок](https://github.com/Jlychee/BreakBricks/blob/main/src/Brick.jack), [блоки](https://github.com/Jlychee/BreakBricks/blob/main/src/Bricks.jack), [счётчик](https://github.com/Jlychee/BreakBricks/blob/main/src/Counter.jack), [игра](https://github.com/Jlychee/BreakBricks/blob/main/src/BreakBricksGame.jack))
-##### :trident: Исчезновение всего блока при его касании мяча с продолжением движения мяча (см. метод checkBrickCollision [тут](https://github.com/Jlychee/BreakBricks/blob/main/src/Ball.jack))
+##### :trident: Исчезновение всего блока при его касании мяча с продолжением движения мяча (см. метод checkBrickCollision [тут](https://github.com/Jlychee/BreakBricks/blob/main/src/BreakBricksGame.jack))
 ##### :fire: Возможность настроить режим игры
