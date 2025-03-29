@@ -27,6 +27,7 @@ class Ball {
 	// Рисуем мяч
 	method void draw() {
 		 do Screen.setColor(true);
+
 		 do Screen.drawCircle(posX, posY, 3);
 		 return;
 	}
@@ -35,8 +36,8 @@ class Ball {
 	method void move() {
 		do erase();
 
-		if (((posX + speed) < 5) | ((posX + speed) > 506)) { let speedX = -speedX; }
-        if ((posY + speed) < 5) { let speedY = -speedY; }
+		if ((posX < 10) | (posX > 500)) { let speedX = -speedX; }
+        if ((posY < 5)) { let speedY = -speedY; }
 
 		let posX = posX + speedX;
         let posY = posY + speedY;
