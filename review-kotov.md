@@ -23,6 +23,7 @@
 
 - Блоки стераються на не исчезают
 
+![image](https://github.com/user-attachments/assets/d40cd4fc-f211-4e79-b547-c968f82ed84a)
 ![alt text](review_images/image-4.png)
 ![alt text](review_images/image-6.png)
 ![alt text](review_images/image-7.png)
