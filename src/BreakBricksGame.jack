@@ -212,5 +212,6 @@ class BreakBricksGame {
 		do Output.moveCursor(15,15);
 		do Output.printString("(Press backspace to start again)");
 		return;
+		
 	}
 }
