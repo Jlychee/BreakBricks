@@ -18,8 +18,10 @@
 - Отсутвие валидации на строки на 0 значени, на значения больше предела ![alt text](review_images/image-1.png)
 ![alt text](review_images/image-5.png)
 ![alt text](review_images/image-2.png)
+![image](https://github.com/user-attachments/assets/1a3c45ed-daf1-40e2-8072-d60097d4c0f3)
 
-- Плоки стераються на не исчезают
+
+- Блоки стераються на не исчезают
 
 ![alt text](review_images/image-4.png)
 ![alt text](review_images/image-6.png)
