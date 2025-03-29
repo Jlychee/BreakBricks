@@ -10,20 +10,20 @@
 
 - При нескольких запусках игры стек переполняеться строками из-за не оптимального испоьзования(сохранять текст в переменную)
 
-![alt text](image-8.png)
+![alt text](review_images/image-8.png)
 
-- Ошибка выхода за предел кругом ![](image.png) 
-![alt text](image-9.png)
+- Ошибка выхода за предел кругом ![](review_images/image.png) 
+![alt text](review_images/image-9.png)
 - в 50 % запусков невозможно пройти игру (при нажатие кнопки в пол стрелки платформа не успевает доехать)
-- Отсутвие валидации на строки на 0 значени, на значения больше предела ![alt text](image-1.png)
-![alt text](image-5.png)
-![alt text](image-2.png)
+- Отсутвие валидации на строки на 0 значени, на значения больше предела ![alt text](review_images/image-1.png)
+![alt text](review_images/image-5.png)
+![alt text](review_images/image-2.png)
 
 - Плоки стераються на не исчезают
 
-![alt text](image-4.png)
-![alt text](image-6.png)
-![alt text](image-7.png)
+![alt text](review_images/image-4.png)
+![alt text](review_images/image-6.png)
+![alt text](review_images/image-7.png)
 
 - Лишняя проверка на выход
 ```C#
