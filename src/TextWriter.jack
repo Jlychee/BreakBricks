@@ -1,0 +1,63 @@
+class TextWriter{
+
+	static String enterSpeedText, enterRowsAmountText;
+	static String scoreText, moveInstructions, gameOverText1, gameOverText2, gameOverText3;
+	static String victoryText1, victoryText2, victoryText3;
+	static String exitMessage;
+
+    function void init() {
+		let enterSpeedText = "Enter ball speed: ";
+		let enterRowsAmountText = "Enter the number of rows: ";
+		let scoreText = "Score: 0";
+		let moveInstructions = "Use -> and <- to move platform";
+		let gameOverText1 = "LOOSER";
+		let gameOverText2 = "Stop embarrassing yourself and go train";
+		let gameOverText3 = "(Press BackSpace to embarrass yourself again)";
+		let victoryText1 = "CONGRATULATIONS!";
+		let victoryText2 = "You won, but you are still a looser";
+		let victoryText3 = "(Press BackSpace to start again)";
+		let exitMessage = "well go away :(";
+        return;
+    }
+    
+    // Поздравляем с победой
+	function void writeVictory() {
+		do Screen.clearScreen();
+		do Output.moveCursor(11,15);
+	    do Output.printString(victoryText1);
+		do Output.moveCursor(12,15);
+		do Output.printString(victoryText2);
+		do Output.moveCursor(15,15);
+		do Output.printString(victoryText3);
+		return;
+	}
+
+    // Говорим, что игрок проиграл
+	function void writeGameOver() {
+		do Screen.clearScreen();
+		do Output.moveCursor(11,15);
+	    do Output.printString(gameOverText1);
+		do Output.moveCursor(12,15);
+		do Output.printString(gameOverText2);
+		do Output.moveCursor(15,15);
+		do Output.printString(gameOverText3);
+		return;
+	}
+
+    // Пишем информацию о текущем состоянии счета и подсказки 
+	function void writeInfoAboutGame() {
+		do Output.moveCursor(22,0);
+        do Output.printString(scoreText);
+		do Output.moveCursor(22,30);
+		do Output.printString(moveInstructions);
+		return;
+	}
+
+    // Пишем сообщение о выходе из игры 
+    function void writeExitText() {
+        do Screen.clearScreen();
+        do Output.moveCursor(10,27);
+	    do Output.printString(exitMessage);
+        return;
+    }
+}

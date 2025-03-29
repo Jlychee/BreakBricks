@@ -2,6 +2,7 @@
 class Main {
 	function void main() {
 		 var BreakBricksGame game;
+		 do TextWriter.init();
 		 let game = BreakBricksGame.new();
 		 do game.run();
 		 do game.dispose();
