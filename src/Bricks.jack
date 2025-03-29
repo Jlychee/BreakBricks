@@ -7,10 +7,10 @@ class Bricks{
         return this;
     }
 
-    // Освобождение пямяти
+     // Освобождение пямяти
 	method void dispose() {
-		do Memory.deAlloc(this);
-		 return;
+        do Memory.deAlloc(this);
+		return;
 	}
 
     // Заполнение массива блоков

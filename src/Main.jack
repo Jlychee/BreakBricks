@@ -6,6 +6,7 @@ class Main {
 		 let game = BreakBricksGame.new();
 		 do game.run();
 		 do game.dispose();
+		 do Memory.dispose(game);
 		 return;
 	}
 }

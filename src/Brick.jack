@@ -10,8 +10,8 @@ class Brick {
 
 	// Освобождение памяти
 	method void dispose() {
-		 do Memory.deAlloc(this);
-		 return;
+		do Memory.deAlloc(this);
+		return;
 	}
 
 	// Стираем блок

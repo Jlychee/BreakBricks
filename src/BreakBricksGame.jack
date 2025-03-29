@@ -27,9 +27,9 @@ class BreakBricksGame {
 	method void startOfTheGame() {
 		do Output.moveCursor(0, 0);
 
-		let speed = Keyboard.readInt("Enter ball speed (maximum permissible speed is 8): ");
+		let speed = Keyboard.readInt(TextWriter.getEnterSpeedText());
 		if ((speed > 8)) { let speed = 8; }
-		let rowsCount = Keyboard.readInt("Enter the number of rows (maximum number of rows is 19): ");
+		let rowsCount = Keyboard.readInt(TextWriter.getEnterRowsText());
 		if ((rowsCount > 19)) {let rowsCount = 19; }
 
 		do Screen.clearScreen();
@@ -70,11 +70,9 @@ class BreakBricksGame {
 			do paddle.move();
 			do checkAllConditions();
 		}
-		if (exit) {
-			do dispose();
-			do TextWriter.writeExitText();
-			do waitRestart();
-	    }
+		do dispose();
+		do TextWriter.writeExitText();
+		do waitRestart();
 		return;
 	}
 

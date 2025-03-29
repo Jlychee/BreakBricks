@@ -1,13 +1,11 @@
 class TextWriter{
 
-	static String enterSpeedText, enterRowsAmountText;
-	static String scoreText, moveInstructions, gameOverText1, gameOverText2, gameOverText3;
-	static String victoryText1, victoryText2, victoryText3;
-	static String exitMessage;
+	static string scoreText, moveInstructions, gameOverText1, gameOverText2, gameOverText3;
+	static string victoryText1, victoryText2, victoryText3;
+	static string exitMessage1, exitMessage2;
+	static string enterSpeedMessage, enterRowsMessage;
 
     function void init() {
-		let enterSpeedText = "Enter ball speed: ";
-		let enterRowsAmountText = "Enter the number of rows: ";
 		let scoreText = "Score: 0";
 		let moveInstructions = "Use -> and <- to move platform";
 		let gameOverText1 = "LOOSER";
@@ -16,11 +14,18 @@ class TextWriter{
 		let victoryText1 = "CONGRATULATIONS!";
 		let victoryText2 = "You won, but you are still a looser";
 		let victoryText3 = "(Press BackSpace to start again)";
-		let exitMessage = "well go away :(";
-        return;
+		let exitMessage1 = "Well go away :(";
+		let exitMessage2 = "This game is too awesome for you, asshole";
+		let enterSpeedMessage = "Enter ball speed (maximum permissible speed is 8): ";
+        let enterRowsMessage = "Enter the number of rows (maximum number of rows is 19): ";
+		return;
     }
     
-    // Поздравляем с победой
+	function string getEnterSpeedText() { return enterSpeedMessage; }
+    
+	function string getEnterRowsText() { return enterRowsMessage; }
+
+	// Поздравляем с победой
 	function void writeVictory() {
 		do Screen.clearScreen();
 		do Output.moveCursor(11,15);
@@ -56,8 +61,11 @@ class TextWriter{
     // Пишем сообщение о выходе из игры 
     function void writeExitText() {
         do Screen.clearScreen();
-        do Output.moveCursor(10,27);
-	    do Output.printString(exitMessage);
+        do Output.moveCursor(10,20);
+	    do Output.printString(exitMessage1);
+		do Output.moveCursor(11,20);
+		do Output.printString(exitMessage2);
         return;
     }
+
 }
