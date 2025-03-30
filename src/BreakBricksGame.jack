@@ -49,8 +49,18 @@ class BreakBricksGame {
 
 	// Ждём, когда игрок нажмёт backspace и начинаем игру заново
 	method void waitRestart() {
+		var int restartCount;
 		while (true) {
 				if (Keyboard.keyPressed() = 129) {
+					do Main.IncRstartCount();
+					let restartCount = Main.GetRestartCount();
+					
+					if (restartCount > 7) {
+						do TextWriter.writeBullyingMessage();
+						do dispose();
+						do Sys.halt();
+					}
+					do dispose();
 					do Screen.clearScreen();
 					do Main.main();
 				}
@@ -72,7 +82,6 @@ class BreakBricksGame {
 		}
 		do dispose();
 		do TextWriter.writeExitText();
-		do waitRestart();
 		return;
 	}
 

@@ -86,7 +86,7 @@ call Memory.deAlloc 1
 pop temp 0
 push constant 0
 return
-function BreakBricksGame.waitRestart 0
+function BreakBricksGame.waitRestart 1
 push argument 0
 pop pointer 0
 label WHILE_EXP0
@@ -100,6 +100,27 @@ eq
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
+call Main.IncRstartCount 0
+pop temp 0
+call Main.GetRestartCount 0
+pop local 0
+push local 0
+push constant 7
+gt
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+call TextWriter.writeBullyingMessage 0
+pop temp 0
+push pointer 0
+call BreakBricksGame.dispose 1
+pop temp 0
+call Sys.halt 0
+pop temp 0
+label IF_FALSE1
+push pointer 0
+call BreakBricksGame.dispose 1
+pop temp 0
 call Screen.clearScreen 0
 pop temp 0
 call Main.main 0
@@ -147,9 +168,6 @@ push pointer 0
 call BreakBricksGame.dispose 1
 pop temp 0
 call TextWriter.writeExitText 0
-pop temp 0
-push pointer 0
-call BreakBricksGame.waitRestart 1
 pop temp 0
 push constant 0
 return

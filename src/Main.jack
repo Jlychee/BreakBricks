@@ -1,12 +1,27 @@
 // Просто создаем экземпляр игры, запускаем и очищаем
 class Main {
+	static bool initialized;
+	static int restartCount;
 	function void main() {
 		 var BreakBricksGame game;
-		 do TextWriter.init();
+
+		 if (~initialized) {
+			do TextWriter.init();
+			let initialized = true;
+		 }
+		 
+		 if (restartCount = 0) { let restartCount = 0; }
+		 
 		 let game = BreakBricksGame.new();
 		 do game.run();
 		 do game.dispose();
-		 do Memory.dispose(game);
 		 return;
 	}
+
+	function void IncRstartCount() {
+		let restartCount = restartCount + 1;
+		return;
+	}
+
+	function int GetRestartCount() { return restartCount; }
 }
