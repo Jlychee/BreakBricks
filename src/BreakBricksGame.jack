@@ -99,7 +99,7 @@ class BreakBricksGame {
 		do checkBrickCollision(posX, posY, speedX, speedY);
 		do checkGameOver(ball);
 		do checkWinning(counter);
-		do Sys.wait(10);
+		do Sys.wait(15);
 		return;
 	}
 

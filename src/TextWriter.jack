@@ -43,11 +43,11 @@ class TextWriter{
     // Говорим, что игрок проиграл
 	function void writeGameOver() {
 		do Screen.clearScreen();
-		do Output.moveCursor(11,15);
+		do Output.moveCursor(10,30);
 	    do Output.printString(gameOverText1);
-		do Output.moveCursor(12,15);
+		do Output.moveCursor(11,13);
 		do Output.printString(gameOverText2);
-		do Output.moveCursor(15,15);
+		do Output.moveCursor(12,13);
 		do Output.printString(gameOverText3);
 		return;
 	}
@@ -64,9 +64,9 @@ class TextWriter{
     // Пишем сообщение о выходе из игры 
     function void writeExitText() {
         do Screen.clearScreen();
-        do Output.moveCursor(10,20);
+        do Output.moveCursor(11,28);
 	    do Output.printString(exitMessage1);
-		do Output.moveCursor(11,20);
+		do Output.moveCursor(12,14);
 		do Output.printString(exitMessage2);
         return;
     }
