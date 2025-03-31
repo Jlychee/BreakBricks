@@ -4,18 +4,15 @@
 class Paddle {
 	field int posX, posY;
 	field int speed;
-	field int blockWidth, blockHeight;
+	field int paddleWidth;
 	field int leftBorderX, rightBorderX;
-	field int ballRadius;
 
 	constructor Paddle new(int startX, int startY, int userSpeed) {
 		let posX = startX;
         let posY = startY;
-		let speed = userSpeed;
-		let blockWidth = Constants.getBlockWidth();
-		let blockHeight = Constants.getBlockHeight();
+		let speed = userSpeed + 1;
+		let paddleWidth = Constants.getBlockWidth();
 		let leftBorderX =  Constants.getLeftBorderX();
-		let ballRadius = Constants.getBallRadius();
 		let rightBorderX = Constants.getRightBorderX();
 		do draw();
 		return this;
@@ -44,14 +41,14 @@ class Paddle {
 	// Стираем платформу
 	method void erase() {
       do Screen.setColor(false);
-      do Screen.drawRectangle(posX, posY, posX + blockWidth, posY + ballRadius);
+      do Screen.drawRectangle(posX, posY, posX + paddleWidth, posY + 3);
       return;
    }
 
 	// Рисуем платформу
 	method void draw() {
 		 do Screen.setColor(true);
-		 do Screen.drawRectangle(posX, posY, posX + blockWidth, posY + ballRadius);
+		 do Screen.drawRectangle(posX, posY, posX + paddleWidth, posY + 3);
 		 return;
 	}
 

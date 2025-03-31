@@ -6,8 +6,8 @@ class Ball {
 	constructor Ball new(int startX, int startY, int velocityX, int velocityY) {
 		let posX = startX;
         let posY = startY;
-        let speedX = velocityX;
-		let speedY = velocityY;
+        let speedX = -velocityX;
+		let speedY = -velocityY;
 		let speed = velocityX;
 		let radius = Constants.getBallRadius();
 		let rightBorderX = Constants.getRightBorderX();
@@ -33,7 +33,6 @@ class Ball {
 	// Рисуем мяч
 	method void draw() {
 		 do Screen.setColor(true);
-
 		 do Screen.drawCircle(posX, posY, radius);
 		 return;
 	}

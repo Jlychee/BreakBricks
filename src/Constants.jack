@@ -2,6 +2,7 @@ class Constants {
     static int blockWidth, blockHeight;
     static int rightBorderX, leftBorderX;
     static int leftBorderY, rightBorderY;
+	static int paddleWidth;
     static int ballRadius;
     
     function void init() {

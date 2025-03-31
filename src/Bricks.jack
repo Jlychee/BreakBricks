@@ -9,6 +9,9 @@ class Bricks{
 
      // Освобождение пямяти
 	method void dispose() {
+		if (~(bricks = null)) {
+			do Array.dispose(bricks);
+		}
         do Memory.deAlloc(this);
 		return;
 	}

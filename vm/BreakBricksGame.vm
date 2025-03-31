@@ -1,12 +1,25 @@
 function BreakBricksGame.new 0
-push constant 10
+push constant 11
 call Memory.alloc 1
 pop pointer 0
+push constant 0
+not
+pop this 10
+push pointer 0
+return
+function BreakBricksGame.init 0
+push argument 0
+pop pointer 0
+push this 10
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
 push pointer 0
 call BreakBricksGame.startOfTheGame 1
 pop temp 0
-push constant 45
-push constant 210
+label IF_FALSE0
+push constant 70
+push constant 240
 push this 6
 push this 6
 call Ball.new 4
@@ -35,9 +48,9 @@ pop temp 0
 push this 2
 call Bricks.getBricks 1
 pop this 2
-push pointer 0
+push constant 0
 return
-function BreakBricksGame.startOfTheGame 0
+function BreakBricksGame.startOfTheGame 2
 push argument 0
 pop pointer 0
 push constant 0
@@ -45,29 +58,89 @@ push constant 0
 call Output.moveCursor 2
 pop temp 0
 call TextWriter.getEnterSpeedText 0
-call Keyboard.readInt 1
-pop this 6
-push this 6
+call Keyboard.readLine 1
+pop local 0
+push local 0
+call String.intValue 1
+pop local 0
+label WHILE_EXP0
+push local 0
+push constant 0
+call String.new 1
+eq
+push local 0
 push constant 8
 gt
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
-push constant 8
+or
+push local 0
+push constant 1
+lt
+or
+not
+if-goto WHILE_END0
+call TextWriter.WriteInputRequest 0
+pop temp 0
+push constant 2000
+call Sys.wait 1
+pop temp 0
+call Screen.clearScreen 0
+pop temp 0
+push constant 0
+push constant 0
+call Output.moveCursor 2
+pop temp 0
+call TextWriter.getEnterSpeedText 0
+call Keyboard.readLine 1
+pop local 0
+push local 0
+call String.intValue 1
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push local 0
 pop this 6
-label IF_FALSE0
 call TextWriter.getEnterRowsText 0
-call Keyboard.readInt 1
-pop this 4
-push this 4
+call Keyboard.readLine 1
+pop local 1
+push local 1
+call String.intValue 1
+pop local 1
+label WHILE_EXP1
+push local 1
+push constant 0
+call String.new 1
+eq
+push local 1
 push constant 19
 gt
-if-goto IF_TRUE1
-goto IF_FALSE1
-label IF_TRUE1
-push constant 19
+or
+push local 1
+push constant 1
+lt
+or
+not
+if-goto WHILE_END1
+call TextWriter.WriteInputRequest 0
+pop temp 0
+push constant 2000
+call Sys.wait 1
+pop temp 0
+call Screen.clearScreen 0
+pop temp 0
+push constant 0
+push constant 0
+call Output.moveCursor 2
+pop temp 0
+call TextWriter.getEnterRowsText 0
+call Keyboard.readLine 1
+pop local 1
+push local 1
+call String.intValue 1
+pop local 1
+goto WHILE_EXP1
+label WHILE_END1
+push local 1
 pop this 4
-label IF_FALSE1
 call Screen.clearScreen 0
 pop temp 0
 push constant 0
@@ -86,9 +159,6 @@ call Counter.dispose 1
 pop temp 0
 push this 2
 call Bricks.dispose 1
-pop temp 0
-push pointer 0
-call Memory.deAlloc 1
 pop temp 0
 push constant 0
 return
@@ -124,16 +194,43 @@ pop temp 0
 call Sys.halt 0
 pop temp 0
 label IF_FALSE1
+push constant 0
+pop this 10
+push pointer 0
+call BreakBricksGame.restartGame 1
+pop temp 0
+label IF_FALSE0
+call Keyboard.keyPressed 0
+push constant 140
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 0
+not
+pop this 10
+push pointer 0
+call BreakBricksGame.restartGame 1
+pop temp 0
+label IF_FALSE2
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function BreakBricksGame.restartGame 0
+push argument 0
+pop pointer 0
 push pointer 0
 call BreakBricksGame.dispose 1
 pop temp 0
 call Screen.clearScreen 0
 pop temp 0
-call Main.main 0
+push pointer 0
+call BreakBricksGame.init 1
 pop temp 0
-label IF_FALSE0
-goto WHILE_EXP0
-label WHILE_END0
+push pointer 0
+call BreakBricksGame.run 1
+pop temp 0
 push constant 0
 return
 function BreakBricksGame.run 2
@@ -174,6 +271,9 @@ push pointer 0
 call BreakBricksGame.dispose 1
 pop temp 0
 call TextWriter.writeExitText 0
+pop temp 0
+push pointer 0
+call BreakBricksGame.waitRestart 1
 pop temp 0
 push constant 0
 return

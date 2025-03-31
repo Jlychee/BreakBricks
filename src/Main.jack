@@ -14,8 +14,10 @@ class Main {
 		 if (restartCount = 0) { let restartCount = 0; }
 		 
 		 let game = BreakBricksGame.new();
+		 do game.init();
 		 do game.run();
 		 do game.dispose();
+		 do Memory.dispose(game);
 		 return;
 	}
 

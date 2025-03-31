@@ -8,11 +8,19 @@ class BreakBricksGame {
 	field int rowsCount, bricksInRowCount;
 	field int speed;
 	field int blockWidth, blockHeight, ballRadius;
+	field bool isFullRestart;
 
 	constructor BreakBricksGame new() {
-		do startOfTheGame();
+		let isFullRestart = true;
+		return this;
+  	}
 
-		let ball = Ball.new(45, 210, speed, speed);
+	method void init() {
+		if (isFullRestart) {
+			do startOfTheGame();
+		}		
+
+		let ball = Ball.new(70, 240, speed, speed);
 		let paddle = Paddle.new(70, 235, speed);
 		let bricksInRowCount = 17;
 		let counter = Counter.new();
@@ -20,11 +28,12 @@ class BreakBricksGame {
 		let blockHeight = Constants.getBlockHeight();
 		let blockWidth = Constants.getBlockWidth();
 		let ballRadius = Constants.getBallRadius();
+
 		do TextWriter.writeInfoAboutGame();
 	
 		let bricks = bricks.getBricks();
-		return this;
-  	}
+		return;
+	}
 
 	// Начало игры: спрашиваем желаемую скорость мяча и количество рядов блоков
 	method void startOfTheGame() {
@@ -61,14 +70,13 @@ class BreakBricksGame {
 		return;
 	}
 
-
 	// Освобождение памяти
 	method void dispose() {
 		 do ball.dispose();
 		 do paddle.dispose();
 		 do counter.dispose();
 		 do bricks.dispose();
-		 do Memory.deAlloc(this);
+		 //do Memory.deAlloc(this);
 		 return;
 	}
 
@@ -85,11 +93,24 @@ class BreakBricksGame {
 						do dispose();
 						do Sys.halt();
 					}
-					do dispose();
-					do Screen.clearScreen();
-					do Main.main();
+
+					let isFullRestart = false;
+					do restartGame();
+				}
+
+				if (Keyboard.keyPressed() = 140) {
+					let isFullRestart = true;
+					do restartGame();
 				}
 			}
+		return;
+	}
+
+	method void restartGame() {
+		do dispose();
+        do Screen.clearScreen();
+        do init();
+        do run();
 		return;
 	}
 
@@ -107,6 +128,7 @@ class BreakBricksGame {
 		}
 		do dispose();
 		do TextWriter.writeExitText();
+		do waitRestart();
 		return;
 	}
 
@@ -148,8 +170,6 @@ class BreakBricksGame {
     var Brick brick;
     var int brickX, brickY;
 	var int nextPosX, nextPosY;
-
-
 
     let j = 0;
     while (j < rowsCount) {
