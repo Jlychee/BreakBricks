@@ -1,5 +1,7 @@
 class Ball {
-	field int posX, posY, speedX, speedY, speed;
+	field int posX, posY, speedX, speedY, speed, radius;
+	field int rightBorderX, leftBorderX, leftBorderY;
+
 
 	constructor Ball new(int startX, int startY, int velocityX, int velocityY) {
 		let posX = startX;
@@ -7,6 +9,10 @@ class Ball {
         let speedX = velocityX;
 		let speedY = velocityY;
 		let speed = velocityX;
+		let radius = Constants.getBallRadius();
+		let rightBorderX = Constants.getRightBorderX();
+		let leftBorderX = Constants.getLeftBorderX();
+		let leftBorderY = Constants.getLeftBorderY();
 		do draw();
 		return this;
 	}
@@ -20,7 +26,7 @@ class Ball {
 	// Стираем мяч
 	method void erase() {
       do Screen.setColor(false);
-      do Screen.drawCircle(posX, posY, 3);
+      do Screen.drawCircle(posX, posY, radius);
       return;
    }
 
@@ -28,16 +34,16 @@ class Ball {
 	method void draw() {
 		 do Screen.setColor(true);
 
-		 do Screen.drawCircle(posX, posY, 3);
+		 do Screen.drawCircle(posX, posY, radius);
 		 return;
 	}
 
 	// Движение мяча
 	method void move() {
+	
 		do erase();
-
-		if ((posX < 10) | (posX > 500)) { let speedX = -speedX; }
-        if ((posY < 5)) { let speedY = -speedY; }
+		if ((posX < (leftBorderX + radius)) | (posX > (rightBorderX + radius))) { let speedX = -speedX; }
+        if ((posY < leftBorderY)) { let speedY = -speedY; }
 
 		let posX = posX + speedX;
         let posY = posY + speedY;

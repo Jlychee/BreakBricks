@@ -7,6 +7,7 @@ class BreakBricksGame {
 	field Counter counter;
 	field int rowsCount, bricksInRowCount;
 	field int speed;
+	field int blockWidth, blockHeight, ballRadius;
 
 	constructor BreakBricksGame new() {
 		do startOfTheGame();
@@ -16,7 +17,9 @@ class BreakBricksGame {
 		let bricksInRowCount = 17;
 		let counter = Counter.new();
 		let bricks = Bricks.new(rowsCount, bricksInRowCount);
-
+		let blockHeight = Constants.getBlockHeight();
+		let blockWidth = Constants.getBlockWidth();
+		let ballRadius = Constants.getBallRadius();
 		do TextWriter.writeInfoAboutGame();
 	
 		let bricks = bricks.getBricks();
@@ -144,12 +147,9 @@ class BreakBricksGame {
     var int i, j;
     var Brick brick;
     var int brickX, brickY;
-    var int brickWidth, brickHeight, ballRadius; 
 	var int nextPosX, nextPosY;
 
-	let brickHeight = 10;
-	let brickWidth = 25;
-	let ballRadius = 5;
+
 
     let j = 0;
     while (j < rowsCount) {
@@ -164,8 +164,8 @@ class BreakBricksGame {
 				let nextPosX = posX + speedX;
                 let nextPosY = posY + speedY;
 
-                if ((((nextPosY + ballRadius) > brickY) & ((nextPosY - ballRadius) < (brickY + brickHeight)) & 
-                    ((nextPosX + ballRadius) > brickX) & ((nextPosX - ballRadius) < (brickX + brickWidth)))) {
+                if ((((nextPosY + ballRadius) > brickY) & ((nextPosY - ballRadius) < (brickY + blockHeight)) & 
+                    ((nextPosX + ballRadius) > brickX) & ((nextPosX - ballRadius) < (brickX + blockWidth)))) {
 
                     do ball.setSpeedY(-speedY);
 

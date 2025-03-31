@@ -7,6 +7,7 @@ class Main {
 
 		 if (~initialized) {
 			do TextWriter.init();
+			do Constants.init();
 			let initialized = true;
 		 }
 		 

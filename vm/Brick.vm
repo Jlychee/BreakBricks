@@ -1,11 +1,15 @@
 function Brick.new 0
-push constant 2
+push constant 4
 call Memory.alloc 1
 pop pointer 0
 push argument 0
 pop this 0
 push argument 1
 pop this 1
+call Constants.getBlockWidth 0
+pop this 2
+call Constants.getBlockHeight 0
+pop this 3
 push pointer 0
 call Brick.draw 1
 pop temp 0
@@ -28,10 +32,10 @@ pop temp 0
 push this 0
 push this 1
 push this 0
-push constant 20
+push this 2
 add
 push this 1
-push constant 5
+push this 3
 add
 call Screen.drawRectangle 4
 pop temp 0
@@ -47,10 +51,10 @@ pop temp 0
 push this 0
 push this 1
 push this 0
-push constant 20
+push this 2
 add
 push this 1
-push constant 5
+push this 3
 add
 call Screen.drawRectangle 4
 pop temp 0

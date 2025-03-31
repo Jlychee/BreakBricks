@@ -1,0 +1,25 @@
+class Constants {
+    static int blockWidth, blockHeight;
+    static int rightBorderX, leftBorderX;
+    static int leftBorderY, rightBorderY;
+    static int ballRadius;
+    
+    function void init() {
+        let blockWidth = 20;
+        let blockHeight = 5;
+        let rightBorderX = 480;
+
+        let leftBorderX = 7;
+        let ballRadius = 3;
+
+        let leftBorderY = 5;
+        return ;
+    }
+
+    function int getBlockWidth() { return blockWidth; }
+    function int getBlockHeight() { return blockHeight; }
+    function int getRightBorderX() { return rightBorderX; }
+    function int getLeftBorderX() { return leftBorderX; }
+    function int getLeftBorderY() { return leftBorderY; }
+    function int getBallRadius() { return ballRadius; }
+}

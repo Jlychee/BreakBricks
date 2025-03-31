@@ -6,6 +6,8 @@ goto IF_FALSE0
 label IF_TRUE0
 call TextWriter.init 0
 pop temp 0
+call Constants.init 0
+pop temp 0
 push constant 0
 not
 pop static 0
