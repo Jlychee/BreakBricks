@@ -25,12 +25,34 @@ class BreakBricksGame {
 
 	// Начало игры: спрашиваем желаемую скорость мяча и количество рядов блоков
 	method void startOfTheGame() {
+		var string playerSpeed;
+		var string playerRowCount;
 		do Output.moveCursor(0, 0);
+		let playerSpeed = Keyboard.readLine(TextWriter.getEnterSpeedText());
+		let playerSpeed = String.intValue(playerSpeed);
+		while((playerSpeed = "") | (playerSpeed > 8) | (playerSpeed < 1)) 
+		{
+			do TextWriter.WriteInputRequest();
+			do Sys.wait(2000);
+			do Screen.clearScreen();
+			do Output.moveCursor(0, 0);
+			let playerSpeed = Keyboard.readLine(TextWriter.getEnterSpeedText());
+			let playerSpeed = String.intValue(playerSpeed);
+		}
+		let speed = playerSpeed;
 
-		let speed = Keyboard.readInt(TextWriter.getEnterSpeedText());
-		if ((speed > 8)) { let speed = 8; }
-		let rowsCount = Keyboard.readInt(TextWriter.getEnterRowsText());
-		if ((rowsCount > 19)) {let rowsCount = 19; }
+		let playerRowCount = Keyboard.readLine(TextWriter.getEnterRowsText());
+		let playerRowCount = String.intValue(playerRowCount);
+		while((playerRowCount = "") | (playerRowCount > 19) | (playerRowCount < 1)) 
+		{
+			do TextWriter.WriteInputRequest();
+			do Sys.wait(2000);
+			do Screen.clearScreen();
+			do Output.moveCursor(0, 0);
+			let playerRowCount = Keyboard.readLine(TextWriter.getEnterRowsText());
+			let playerRowCount = String.intValue(playerRowCount);
+		}
+		let rowsCount = playerRowCount;
 
 		do Screen.clearScreen();
 		return;
