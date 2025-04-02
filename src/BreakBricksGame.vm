@@ -1,0 +1,503 @@
+function BreakBricksGame.new 0
+push constant 11
+call Memory.alloc 1
+pop pointer 0
+push constant 0
+not
+pop this 10
+push pointer 0
+return
+function BreakBricksGame.init 0
+push argument 0
+pop pointer 0
+push this 10
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push pointer 0
+call BreakBricksGame.startOfTheGame 1
+pop temp 0
+label IF_FALSE0
+push constant 70
+push constant 240
+push this 6
+push this 6
+call Ball.new 4
+pop this 0
+push constant 70
+push constant 235
+push this 6
+call Paddle.new 3
+pop this 1
+push constant 17
+pop this 5
+call Counter.new 0
+pop this 3
+push this 4
+push this 5
+call Bricks.new 2
+pop this 2
+call Constants.getBlockHeight 0
+pop this 8
+call Constants.getBlockWidth 0
+pop this 7
+call Constants.getBallRadius 0
+pop this 9
+call TextWriter.writeInfoAboutGame 0
+pop temp 0
+push this 2
+call Bricks.getBricks 1
+pop this 2
+push constant 0
+return
+function BreakBricksGame.startOfTheGame 0
+push argument 0
+pop pointer 0
+push constant 0
+push constant 0
+call Output.moveCursor 2
+pop temp 0
+push pointer 0
+call TextWriter.getEnterSpeedText 0
+push constant 8
+call BreakBricksGame.ReadValue 3
+pop this 6
+push pointer 0
+call TextWriter.getEnterRowsText 0
+push constant 19
+call BreakBricksGame.ReadValue 3
+pop this 4
+call Screen.clearScreen 0
+pop temp 0
+push constant 0
+return
+function BreakBricksGame.dispose 0
+push argument 0
+pop pointer 0
+push this 0
+call Ball.dispose 1
+pop temp 0
+push this 1
+call Paddle.dispose 1
+pop temp 0
+push this 3
+call Counter.dispose 1
+pop temp 0
+push this 2
+call Bricks.dispose 1
+pop temp 0
+push constant 0
+return
+function BreakBricksGame.waitRestart 1
+push argument 0
+pop pointer 0
+label WHILE_EXP0
+push constant 0
+not
+not
+if-goto WHILE_END0
+call Keyboard.keyPressed 0
+push constant 129
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+call Main.IncRstartCount 0
+pop temp 0
+call Main.GetRestartCount 0
+pop local 0
+push local 0
+push constant 7
+gt
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+call TextWriter.writeBullyingMessage 0
+pop temp 0
+push pointer 0
+call BreakBricksGame.dispose 1
+pop temp 0
+call Sys.halt 0
+pop temp 0
+label IF_FALSE1
+push constant 0
+pop this 10
+push pointer 0
+call BreakBricksGame.restartGame 1
+pop temp 0
+label IF_FALSE0
+call Keyboard.keyPressed 0
+push constant 140
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 0
+not
+pop this 10
+push pointer 0
+call BreakBricksGame.restartGame 1
+pop temp 0
+label IF_FALSE2
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function BreakBricksGame.restartGame 0
+push argument 0
+pop pointer 0
+push pointer 0
+call BreakBricksGame.dispose 1
+pop temp 0
+call Screen.clearScreen 0
+pop temp 0
+push pointer 0
+call BreakBricksGame.init 1
+pop temp 0
+push pointer 0
+call BreakBricksGame.run 1
+pop temp 0
+push constant 0
+return
+function BreakBricksGame.run 2
+push argument 0
+pop pointer 0
+push constant 0
+pop local 1
+label WHILE_EXP0
+push local 1
+not
+not
+if-goto WHILE_END0
+call Keyboard.keyPressed 0
+push constant 140
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+pop local 1
+label IF_FALSE0
+push this 3
+call Counter.draw 1
+pop temp 0
+push this 0
+call Ball.move 1
+pop temp 0
+push this 1
+call Paddle.move 1
+pop temp 0
+push pointer 0
+call BreakBricksGame.checkAllConditions 1
+pop temp 0
+goto WHILE_EXP0
+label WHILE_END0
+push pointer 0
+call BreakBricksGame.dispose 1
+pop temp 0
+call TextWriter.writeExitText 0
+pop temp 0
+push pointer 0
+call BreakBricksGame.waitRestart 1
+pop temp 0
+push constant 0
+return
+function BreakBricksGame.checkAllConditions 4
+push argument 0
+pop pointer 0
+push this 0
+call Ball.getX 1
+pop local 1
+push this 0
+call Ball.getY 1
+pop local 0
+push this 0
+call Ball.getSpeedX 1
+pop local 2
+push this 0
+call Ball.getSpeedY 1
+pop local 3
+push pointer 0
+push local 1
+push local 0
+push local 3
+call BreakBricksGame.checkPaddleCollision 4
+pop temp 0
+push pointer 0
+push local 1
+push local 0
+push local 2
+push local 3
+call BreakBricksGame.checkBrickCollision 5
+pop temp 0
+push pointer 0
+push this 0
+call BreakBricksGame.checkGameOver 2
+pop temp 0
+push pointer 0
+push this 3
+call BreakBricksGame.checkWinning 2
+pop temp 0
+push constant 15
+call Sys.wait 1
+pop temp 0
+push constant 0
+return
+function BreakBricksGame.ReadValue 1
+push argument 0
+pop pointer 0
+push argument 1
+call Keyboard.readLine 1
+pop local 0
+push local 0
+call String.intValue 1
+pop local 0
+label WHILE_EXP0
+push local 0
+push argument 2
+gt
+push local 0
+push constant 1
+lt
+or
+not
+if-goto WHILE_END0
+call TextWriter.WriteInputRequest 0
+pop temp 0
+push constant 2000
+call Sys.wait 1
+pop temp 0
+call Screen.clearScreen 0
+pop temp 0
+push constant 0
+push constant 0
+call Output.moveCursor 2
+pop temp 0
+push argument 1
+call Keyboard.readLine 1
+pop local 0
+push local 0
+call String.intValue 1
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push local 0
+return
+function BreakBricksGame.checkPaddleCollision 2
+push argument 0
+pop pointer 0
+push this 1
+call Paddle.getX 1
+pop local 0
+push this 1
+call Paddle.getY 1
+pop local 1
+push argument 2
+push local 1
+push this 6
+sub
+gt
+push argument 2
+push local 1
+push this 6
+add
+lt
+and
+push argument 1
+push local 0
+push constant 2
+sub
+gt
+and
+push argument 1
+push local 0
+push constant 25
+add
+lt
+and
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push argument 3
+neg
+pop argument 3
+push this 0
+push argument 3
+call Ball.setSpeedY 2
+pop temp 0
+label IF_FALSE0
+push constant 0
+return
+function BreakBricksGame.checkBrickCollision 7
+push argument 0
+pop pointer 0
+push constant 0
+pop local 1
+label WHILE_EXP0
+push local 1
+push this 4
+lt
+not
+if-goto WHILE_END0
+push constant 0
+pop local 0
+label WHILE_EXP1
+push local 0
+push this 5
+lt
+not
+if-goto WHILE_END1
+push local 0
+push local 1
+push this 5
+call Math.multiply 2
+add
+push this 2
+add
+pop pointer 1
+push that 0
+pop local 2
+push local 2
+push constant 0
+eq
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 2
+call Brick.getX 1
+pop local 3
+push local 2
+call Brick.getY 1
+pop local 4
+push argument 1
+push argument 3
+add
+pop local 5
+push argument 2
+push argument 4
+add
+pop local 6
+push local 6
+push this 9
+add
+push local 4
+gt
+push local 6
+push this 9
+sub
+push local 4
+push this 8
+add
+lt
+and
+push local 5
+push this 9
+add
+push local 3
+gt
+and
+push local 5
+push this 9
+sub
+push local 3
+push this 7
+add
+lt
+and
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 0
+push argument 4
+neg
+call Ball.setSpeedY 2
+pop temp 0
+push local 2
+call Brick.erase 1
+pop temp 0
+push local 2
+call Brick.dispose 1
+pop temp 0
+push this 3
+call Counter.add 1
+pop temp 0
+push local 0
+push local 1
+push this 5
+call Math.multiply 2
+add
+push this 2
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+label IF_FALSE1
+label IF_FALSE0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP1
+label WHILE_END1
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function BreakBricksGame.checkGameOver 1
+push argument 0
+pop pointer 0
+push argument 1
+call Ball.getY 1
+pop local 0
+push local 0
+push this 6
+add
+push constant 249
+gt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push pointer 0
+call BreakBricksGame.dispose 1
+pop temp 0
+call TextWriter.writeGameOver 0
+pop temp 0
+push pointer 0
+call BreakBricksGame.waitRestart 1
+pop temp 0
+label IF_FALSE0
+push constant 0
+return
+function BreakBricksGame.checkWinning 1
+push argument 0
+pop pointer 0
+push this 4
+push this 5
+call Math.multiply 2
+pop local 0
+push argument 1
+call Counter.getCount 1
+push local 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push pointer 0
+call BreakBricksGame.dispose 1
+pop temp 0
+call TextWriter.writeVictory 0
+pop temp 0
+push pointer 0
+call BreakBricksGame.waitRestart 1
+pop temp 0
+label IF_FALSE0
+push constant 0
+return
