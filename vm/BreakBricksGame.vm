@@ -1,5 +1,5 @@
 function BreakBricksGame.new 0
-push constant 11
+push constant 13
 call Memory.alloc 1
 pop pointer 0
 push constant 0
@@ -37,12 +37,16 @@ push this 4
 push this 5
 call Bricks.new 2
 pop this 2
-call Constants.getBlockHeight 0
+call Constants.getBrickHeight 0
 pop this 8
-call Constants.getBlockWidth 0
+call Constants.getBrickWidth 0
 pop this 7
 call Constants.getBallRadius 0
 pop this 9
+push constant 2
+pop this 11
+push constant 5
+pop this 12
 call TextWriter.writeInfoAboutGame 0
 pop temp 0
 push this 2
@@ -65,13 +69,8 @@ call String.intValue 1
 pop local 0
 label WHILE_EXP0
 push local 0
-push constant 0
-call String.new 1
-eq
-push local 0
-push constant 8
+push constant 6
 gt
-or
 push local 0
 push constant 1
 lt
@@ -107,13 +106,8 @@ call String.intValue 1
 pop local 1
 label WHILE_EXP1
 push local 1
-push constant 0
-call String.new 1
-eq
-push local 1
-push constant 19
+push constant 10
 gt
-or
 push local 1
 push constant 1
 lt
@@ -181,7 +175,7 @@ pop temp 0
 call Main.GetRestartCount 0
 pop local 0
 push local 0
-push constant 7
+push constant 12
 gt
 if-goto IF_TRUE1
 goto IF_FALSE1
@@ -329,18 +323,18 @@ call Paddle.getY 1
 pop local 1
 push argument 2
 push local 1
-push this 6
+push argument 3
 sub
 gt
 push argument 2
 push local 1
-push this 6
+push argument 3
 add
 lt
 and
 push argument 1
 push local 0
-push constant 2
+push constant 5
 sub
 gt
 and
@@ -363,9 +357,21 @@ pop temp 0
 label IF_FALSE0
 push constant 0
 return
-function BreakBricksGame.checkBrickCollision 7
+function BreakBricksGame.checkBrickCollision 10
 push argument 0
 pop pointer 0
+push this 8
+push this 12
+add
+pop local 8
+push this 7
+push this 12
+add
+pop local 7
+push this 9
+push this 11
+add
+pop local 9
 push constant 0
 pop local 1
 label WHILE_EXP0
@@ -414,29 +420,29 @@ push argument 4
 add
 pop local 6
 push local 6
-push this 9
+push local 9
 add
 push local 4
 gt
 push local 6
-push this 9
+push local 9
 sub
 push local 4
-push this 8
+push local 8
 add
 lt
 and
 push local 5
-push this 9
+push local 9
 add
 push local 3
 gt
 and
 push local 5
-push this 9
+push local 9
 sub
 push local 3
-push this 7
+push local 7
 add
 lt
 and

@@ -4,30 +4,30 @@ pop static 0
 push constant 5
 pop static 1
 push constant 480
-pop static 2
-push constant 7
-pop static 3
-push constant 3
 pop static 7
+push constant 7
+pop static 6
+push constant 3
+pop static 9
 push constant 5
 pop static 4
 push constant 0
 return
-function Constants.getBlockWidth 0
+function Constants.getBrickWidth 0
 push static 0
 return
-function Constants.getBlockHeight 0
+function Constants.getBrickHeight 0
 push static 1
 return
 function Constants.getRightBorderX 0
-push static 2
+push static 7
 return
 function Constants.getLeftBorderX 0
-push static 3
+push static 6
 return
 function Constants.getLeftBorderY 0
 push static 4
 return
 function Constants.getBallRadius 0
-push static 7
+push static 9
 return

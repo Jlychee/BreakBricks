@@ -17,8 +17,8 @@ class TextWriter{
 		let victoryText3 = "(Press BackSpace to start again)";
 		let exitMessage1 = "Well go away :(";
 		let exitMessage2 = "This game is too awesome for you, asshole";
-		let enterSpeedMessage = "Enter ball speed (maximum permissible speed is 8): ";
-        let enterRowsMessage = "Enter the number of rows (maximum number of rows is 19): ";
+		let enterSpeedMessage = "Enter ball speed (maximum permissible speed is 6): ";
+        let enterRowsMessage = "Enter the number of rows (maximum number of rows is 10): ";
 		let bullyingMessage0 = "Please enter int positive value no more than max";
 		let bullyingMessage1 = "You have made too many unsuccessful attempts";
 		let bullyingMessage2 = "What a shame";

@@ -11,7 +11,7 @@ class Paddle {
 		let posX = startX;
         let posY = startY;
 		let speed = userSpeed + 1;
-		let paddleWidth = Constants.getBlockWidth();
+		let paddleWidth = Constants.getBrickWidth();
 		let leftBorderX =  Constants.getLeftBorderX();
 		let rightBorderX = Constants.getRightBorderX();
 		do draw();

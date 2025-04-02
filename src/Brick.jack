@@ -1,12 +1,12 @@
 class Brick {
 	field int posX, posY;
-	field int blockWidth, blockHeight;
+	field int brickWidth, brickHeight;
 
 	constructor Brick new(int startX, int startY) {
 		let posX = startX;
         let posY = startY;
-		let blockWidth = Constants.getBlockWidth();
-		let blockHeight = Constants.getBlockHeight();
+		let brickWidth = Constants.getBrickWidth();
+		let brickHeight = Constants.getBrickHeight();
 		do draw();
 		return this;
 	}
@@ -20,14 +20,14 @@ class Brick {
 	// Стираем блок
 	method void erase() {
 		do Screen.setColor(false);
-		do Screen.drawRectangle(posX, posY, posX + blockWidth, posY + blockHeight);
+		do Screen.drawRectangle(posX, posY, posX + brickWidth, posY + brickHeight);
 		return;
 	}
 
 	// Рисуем блок
 	method void draw() {
 		do Screen.setColor(true);
-		do Screen.drawRectangle(posX, posY, posX + blockWidth, posY + blockHeight);
+		do Screen.drawRectangle(posX, posY, posX + brickWidth, posY + brickHeight);
 		return;
 	}
 

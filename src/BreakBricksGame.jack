@@ -7,8 +7,9 @@ class BreakBricksGame {
 	field Counter counter;
 	field int rowsCount, bricksInRowCount;
 	field int speed;
-	field int blockWidth, blockHeight, ballRadius;
+	field int brickWidth, brickHeight, ballRadius;
 	field bool isFullRestart;
+	field int ballOffset, brickOffset;
 
 	constructor BreakBricksGame new() {
 		let isFullRestart = true;
@@ -25,9 +26,11 @@ class BreakBricksGame {
 		let bricksInRowCount = 17;
 		let counter = Counter.new();
 		let bricks = Bricks.new(rowsCount, bricksInRowCount);
-		let blockHeight = Constants.getBlockHeight();
-		let blockWidth = Constants.getBlockWidth();
+		let brickHeight = Constants.getBrickHeight();
+		let brickWidth = Constants.getBrickWidth();
 		let ballRadius = Constants.getBallRadius();
+		let ballOffset = 2;
+		let brickOffset = 5;
 
 		do TextWriter.writeInfoAboutGame();
 	
@@ -42,7 +45,7 @@ class BreakBricksGame {
 		do Output.moveCursor(0, 0);
 		let playerSpeed = Keyboard.readLine(TextWriter.getEnterSpeedText());
 		let playerSpeed = String.intValue(playerSpeed);
-		while((playerSpeed = "") | (playerSpeed > 8) | (playerSpeed < 1)) 
+		while((playerSpeed > 6) | (playerSpeed < 1)) 
 		{
 			do TextWriter.WriteInputRequest();
 			do Sys.wait(2000);
@@ -55,7 +58,7 @@ class BreakBricksGame {
 
 		let playerRowCount = Keyboard.readLine(TextWriter.getEnterRowsText());
 		let playerRowCount = String.intValue(playerRowCount);
-		while((playerRowCount = "") | (playerRowCount > 19) | (playerRowCount < 1)) 
+		while((playerRowCount > 10) | (playerRowCount < 1)) 
 		{
 			do TextWriter.WriteInputRequest();
 			do Sys.wait(2000);
@@ -76,7 +79,6 @@ class BreakBricksGame {
 		 do paddle.dispose();
 		 do counter.dispose();
 		 do bricks.dispose();
-		 //do Memory.deAlloc(this);
 		 return;
 	}
 
@@ -88,7 +90,7 @@ class BreakBricksGame {
 					do Main.IncRstartCount();
 					let restartCount = Main.GetRestartCount();
 					
-					if (restartCount > 7) {
+					if (restartCount > 12) {
 						do TextWriter.writeBullyingMessage();
 						do dispose();
 						do Sys.halt();
@@ -157,7 +159,7 @@ class BreakBricksGame {
 		let paddleX = paddle.getX();
 		let paddleY = paddle.getY();
 
-		if ((posY > (paddleY - speed)) & (posY < (paddleY + speed)) & (posX > (paddleX - 2)) & (posX < (paddleX + 25))) {
+		if ((posY > (paddleY - speedY)) & (posY < (paddleY + speedY)) & (posX > (paddleX - 5)) & (posX < (paddleX + 25))) {
 			let speedY = -speedY;
 			do ball.setSpeedY(speedY);
 		}				
@@ -170,6 +172,11 @@ class BreakBricksGame {
     var Brick brick;
     var int brickX, brickY;
 	var int nextPosX, nextPosY;
+	var int brickWidthWithOffset, brickHeightWithOffset, ballRadiusWithOffset;
+
+	let brickHeightWithOffset = brickHeight + brickOffset;
+	let brickWidthWithOffset = brickWidth + brickOffset;
+	let ballRadiusWithOffset = ballRadius + ballOffset;
 
     let j = 0;
     while (j < rowsCount) {
@@ -184,8 +191,8 @@ class BreakBricksGame {
 				let nextPosX = posX + speedX;
                 let nextPosY = posY + speedY;
 
-                if ((((nextPosY + ballRadius) > brickY) & ((nextPosY - ballRadius) < (brickY + blockHeight)) & 
-                    ((nextPosX + ballRadius) > brickX) & ((nextPosX - ballRadius) < (brickX + blockWidth)))) {
+                if ((((nextPosY + ballRadiusWithOffset) > brickY) & ((nextPosY - ballRadiusWithOffset) < (brickY + brickHeightWithOffset)) & 
+                    ((nextPosX + ballRadiusWithOffset) > brickX) & ((nextPosX - ballRadiusWithOffset) < (brickX + brickWidthWithOffset)))) {
 
                     do ball.setSpeedY(-speedY);
 
