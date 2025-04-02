@@ -9,15 +9,15 @@ class BreakBricksGame {
 	field int speed;
 	field bool isFullRestart;
 
-	constructor BreakBricksGame new() {
-		let isFullRestart = true;
-		return this;
-  	}
+  constructor BreakBricksGame new() {
+    let isFullRestart = true;
+    return this;
+    }
 
-	method void init() {
-		if (isFullRestart) {
-			do startOfTheGame();
-		}		
+  method void init() {
+    if (isFullRestart) {
+      do startOfTheGame();
+    }    
 
 		let ball = Ball.new(70, 240, speed, speed);
 		let paddle = Paddle.new(70, 235, speed);
@@ -30,40 +30,32 @@ class BreakBricksGame {
 		return;
 	}
 
-	// Начало игры: спрашиваем желаемую скорость мяча и количество рядов блоков
-	method void startOfTheGame() {
-		var string playerSpeed;
-		var string playerRowCount;
-		do Output.moveCursor(0, 0);
-		let playerSpeed = Keyboard.readLine(TextWriter.getEnterSpeedText());
-		let playerSpeed = String.intValue(playerSpeed);
-		while((playerSpeed = "") | (playerSpeed > 8) | (playerSpeed < 1)) 
-		{
-			do TextWriter.WriteInputRequest();
-			do Sys.wait(15000);
-			do Screen.clearScreen();
-			do Output.moveCursor(0, 0);
-			let playerSpeed = Keyboard.readLine(TextWriter.getEnterSpeedText());
-			let playerSpeed = String.intValue(playerSpeed);
-		}
-		let speed = playerSpeed;
+  // Начало игры: спрашиваем желаемую скорость мяча и количество рядов блоков
+  method void startOfTheGame() {
+    do Output.moveCursor(0, 0);
+    let speed = readValue(TextWriter.getEnterSpeedText(), 8);
+    let rowsCount = readValue(TextWriter.getEnterRowsText(), 19);
+    do Screen.clearScreen();
+    return;
+  }
 
-		let playerRowCount = Keyboard.readLine(TextWriter.getEnterRowsText());
-		let playerRowCount = String.intValue(playerRowCount);
-		while((playerRowCount = "") | (playerRowCount > 19) | (playerRowCount < 1)) 
-		{
-			do TextWriter.WriteInputRequest();
-			do Sys.wait(15000);
-			do Screen.clearScreen();
-			do Output.moveCursor(0, 0);
-			let playerRowCount = Keyboard.readLine(TextWriter.getEnterRowsText());
-			let playerRowCount = String.intValue(playerRowCount);
-		}
-		let rowsCount = playerRowCount;
 
-		do Screen.clearScreen();
-		return;
-	}
+  // Читаем пользовательские значения скорости / кол-ва рядов (принимаем только корректные данные)
+  method int readValue(string message, int maxValue) {
+    var string value;
+    let value = Keyboard.readLine(message);
+    let value = String.intValue(value);
+    while((value > maxValue) | (value < 1)) 
+    {
+      do TextWriter.WriteInputRequest();
+      do Sys.wait(11000);
+      do Screen.clearScreen();
+      do Output.moveCursor(0, 0);
+      let value = Keyboard.readLine(message);
+      let value = String.intValue(value);
+    }
+    return value;
+  }
 
 	// Освобождение памяти
 	method void dispose() {
@@ -74,57 +66,58 @@ class BreakBricksGame {
 		 return;
 	}
 
-	// Ждём, когда игрок нажмёт backspace и начинаем игру заново
-	method void waitRestart() {
-		var int restartCount;
-		while (true) {
-				if (Keyboard.keyPressed() = 129) {
-					do Main.IncRstartCount();
-					let restartCount = Main.GetRestartCount();
-					
-					if (restartCount > 7) {
-						do TextWriter.writeBullyingMessage();
-						do dispose();
-						do Sys.halt();
-					}
+  // Ждём, когда игрок нажмёт backspace и начинаем игру заново
+  method void waitRestart() {
+    var int restartCount;
+    while (true) {
+        if (Keyboard.keyPressed() = 129) {
+          do Main.IncRstartCount();
+          let restartCount = Main.GetRestartCount();
+          
+          if (restartCount > 7) {
+            do TextWriter.writeBullyingMessage();
+            do dispose();
+            do Sys.halt();
+          }
 
-					let isFullRestart = false;
-					do restartGame();
-				}
+          let isFullRestart = false;
+          do restartGame();
+        }
 
-				if (Keyboard.keyPressed() = 140) {
-					let isFullRestart = true;
-					do restartGame();
-				}
-			}
-		return;
-	}
+        if (Keyboard.keyPressed() = 140) {
+          let isFullRestart = true;
+          do restartGame();
+        }
+      }
+    return;
+  }
 
-	method void restartGame() {
-		do dispose();
+  // Перезапускаем игру
+  method void restartGame() {
+    do dispose();
         do Screen.clearScreen();
         do init();
         do run();
-		return;
-	}
+    return;
+  }
 
-	// Пока не нажали escape, постоянно запускаем все методы проверок и движения
-	method void run() {
-		var char key;
-		var boolean exit;
-		let exit = false;
-		while (~exit) {
-			if (Keyboard.keyPressed() = 140)  { let exit = true; }
-			do counter.draw();
-			do ball.move();
-			do paddle.move();
-			do checkAllConditions();
-		}
-		do dispose();
-		do TextWriter.writeExitText();
-		do waitRestart();
-		return;
-	}
+  // Пока не нажали escape, постоянно запускаем все методы проверок и движения
+  method void run() {
+    var char key;
+    var boolean exit;
+    let exit = false;
+    while (~exit) {
+      if (Keyboard.keyPressed() = 140)  { let exit = true; }
+      do counter.draw();
+      do ball.move();
+      do paddle.move();
+      do checkAllConditions();
+    }
+    do dispose();
+    do TextWriter.writeExitText();
+    do waitRestart();
+    return;
+  }
 
 	// Проверяем столкновение мяча с платформой/кирпичиками и не конец ли игры
 	method void checkAllConditions() {
@@ -138,17 +131,17 @@ class BreakBricksGame {
 		return;
 	}
 
-	// Проверка на то, что игрок проиграл
-	method void checkGameOver(Ball ball) {
-		var int ballY;
-		let ballY = ball.getY();
-		if ((ballY + speed) > 249) {
-			do dispose();
-			do TextWriter.writeGameOver();
-			do waitRestart();
-		}
-		return;
-	}
+  // Проверка на то, что игрок проиграл
+  method void checkGameOver(Ball ball) {
+    var int ballY;
+    let ballY = ball.getY();
+    if ((ballY + speed) > 249) {
+      do dispose();
+      do TextWriter.writeGameOver();
+      do waitRestart();
+    }
+    return;
+  }
 
 	// Проверяем, не победили ли мы
 	method void checkWinning(Counter counter) {
