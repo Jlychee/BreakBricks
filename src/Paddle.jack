@@ -1,0 +1,58 @@
+//130 - KeyLeft ←
+//132 - KeyRight →
+
+class Paddle {
+	field int posX, posY;
+	field int speed;
+	field int paddleWidth;
+	field int leftBorderX, rightBorderX;
+
+	constructor Paddle new(int startX, int startY, int userSpeed) {
+		let posX = startX;
+        let posY = startY;
+		let speed = userSpeed + 1;
+		let paddleWidth = Constants.getBlockWidth();
+		let leftBorderX =  Constants.getLeftBorderX();
+		let rightBorderX = Constants.getRightBorderX();
+		do draw();
+		return this;
+	}
+
+	// Движение платформы
+	method void move() {
+		if ((posX < leftBorderX) & (Keyboard.keyPressed() = 130)) { return; } // Левая граница
+        if ((posX > rightBorderX) & (Keyboard.keyPressed() = 132)) { return; } // Правая граница
+
+		do erase();
+
+		if (Keyboard.keyPressed() = 130) { let posX = posX - speed; } // Движение влево
+        if (Keyboard.keyPressed() = 132) { let posX = posX + speed; } // Движение вправо
+
+		do draw();
+		return;
+	}
+
+	// Освобождаем память
+	method void dispose() {
+		 do Memory.deAlloc(this);
+		 return;
+	}
+
+	// Стираем платформу
+	method void erase() {
+      do Screen.setColor(false);
+      do Screen.drawRectangle(posX, posY, posX + paddleWidth, posY + 3);
+      return;
+   }
+
+	// Рисуем платформу
+	method void draw() {
+		 do Screen.setColor(true);
+		 do Screen.drawRectangle(posX, posY, posX + paddleWidth, posY + 3);
+		 return;
+	}
+
+	// Геттеры
+	method int getX() { return posX; }
+	method int getY() { return posY; }
+}
