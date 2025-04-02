@@ -9,10 +9,8 @@ class Constants {
         let blockWidth = 20;
         let blockHeight = 5;
         let rightBorderX = 480;
-
         let leftBorderX = 7;
         let ballRadius = 3;
-
         let leftBorderY = 5;
         return ;
     }

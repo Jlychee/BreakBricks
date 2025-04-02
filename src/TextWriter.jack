@@ -4,7 +4,7 @@ class TextWriter{
 	static string victoryText1, victoryText2, victoryText3;
 	static string exitMessage1, exitMessage2;
 	static string enterSpeedMessage, enterRowsMessage;
-	static string bullyingMessage0, bullyingMessage1, bullyingMessage2;
+	static string bullyingMessage0, bullyingMessage1, bullyingMessage2, bullyingMessage3, bullyingMessage4, bullyingMessage5;
 
     function void init() {
 		let scoreText = "Score: 0";
@@ -19,9 +19,13 @@ class TextWriter{
 		let exitMessage2 = "This game is too awesome for you, asshole";
 		let enterSpeedMessage = "Enter ball speed (maximum permissible speed is 8): ";
         let enterRowsMessage = "Enter the number of rows (maximum number of rows is 19): ";
-		let bullyingMessage0 = "Please enter int positive value no more than max";
 		let bullyingMessage1 = "You have made too many unsuccessful attempts";
 		let bullyingMessage2 = "What a shame";
+		let bullyingMessage3 = "Oh, Lord, you couldn't even enter what you were asked for.";
+		let bullyingMessage4 = "Look how pathetic you are.";
+		let bullyingMessage0 = "Well if you dare you can try to enter";
+		let bullyingMessage5 = "INT POSITIVE value LESS than max again in few second";
+
 		return;
     }
     
@@ -74,8 +78,14 @@ class TextWriter{
 
 	function void WriteInputRequest() {
 		do Screen.clearScreen();
-		do Output.moveCursor(10, 10);
+		do Output.moveCursor(9, 5);
+		do Output.printString(bullyingMessage3);
+		do Output.moveCursor(10, 5);
+		do Output.printString(bullyingMessage4);
+		do Output.moveCursor(12, 5);
 		do Output.printString(bullyingMessage0);
+		do Output.moveCursor(13, 5);
+		do Output.printString(bullyingMessage5);
 		return;
 	}
 

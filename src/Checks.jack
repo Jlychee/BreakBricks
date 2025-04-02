@@ -1,0 +1,82 @@
+class Checks {
+
+    static Ball ball;
+    static Paddle paddle;
+    static Counter counter;
+    static Bricks bricks;
+    static int speed, posX, posY, speedX, speedY;
+    static int bricksInRowCount, rowsCount, ballRadius, blockHeight, blockWidth;
+
+    //инициализируем все нужные переменные для проверок 
+	function void init(Ball _ball, Counter _counter, Paddle _paddle, int _speed, Bricks _bricks, int _rowsCount) {
+        let ball = _ball;
+        let counter = _counter;
+        let paddle = _paddle;
+        let bricks = _bricks;
+        let speed = _speed;
+        let bricksInRowCount = 17;
+        let rowsCount = _rowsCount;
+        let blockHeight = Constants.getBlockHeight();
+		let blockWidth = Constants.getBlockWidth();
+		let ballRadius = Constants.getBallRadius();
+		let posX = ball.getX();
+		let posY = ball.getY();
+		let speedX = ball.getSpeedX();
+		let speedY = ball.getSpeedY();
+		return;
+	}
+
+    // Проверка столкновения мяча с платформой
+	function void checkPaddleCollision() {
+		var int paddleX, paddleY;
+		
+		let paddleX = paddle.getX();
+		let paddleY = paddle.getY();
+
+		if ((posY > (paddleY - speed)) & (posY < (paddleY + speed)) & (posX > (paddleX - 2)) & (posX < (paddleX + 25))) {
+			let speedY = -speedY;
+			do ball.setSpeedY(speedY);
+		}				
+		return;
+	}
+    
+    	// Проверка столкновения мяча с блоком
+	function void checkBrickCollision() {
+		var int i, j;
+		var Brick brick;
+		var int brickX, brickY;
+		var int nextPosX, nextPosY;
+
+		let j = 0;
+		while (j < rowsCount) {
+			let i = 0;
+			while (i < bricksInRowCount) {
+				let brick = bricks[i + (j * bricksInRowCount)];
+
+				if (~(brick = null)) {
+					let brickX = brick.getX();
+					let brickY = brick.getY();
+
+					let nextPosX = posX + speedX;
+					let nextPosY = posY + speedY;
+
+					if ((((nextPosY + ballRadius) > brickY) & ((nextPosY - ballRadius) < (brickY + blockHeight)) & 
+						((nextPosX + ballRadius) > brickX) & ((nextPosX - ballRadius) < (brickX + blockWidth)))) {
+
+						do ball.setSpeedY(-speedY);
+
+						do brick.erase();
+						do brick.dispose();
+
+						do counter.add();
+
+						let bricks[i + (j * bricksInRowCount)] = null;
+					}
+				}
+				let i = i + 1;
+			}
+			let j = j + 1;
+		}
+		return;
+	}
+}

@@ -7,7 +7,6 @@ class BreakBricksGame {
 	field Counter counter;
 	field int rowsCount, bricksInRowCount;
 	field int speed;
-	field int blockWidth, blockHeight, ballRadius;
 	field bool isFullRestart;
 
 	constructor BreakBricksGame new() {
@@ -22,16 +21,12 @@ class BreakBricksGame {
 
 		let ball = Ball.new(70, 240, speed, speed);
 		let paddle = Paddle.new(70, 235, speed);
-		let bricksInRowCount = 17;
 		let counter = Counter.new();
+		let bricksInRowCount = 17;
 		let bricks = Bricks.new(rowsCount, bricksInRowCount);
-		let blockHeight = Constants.getBlockHeight();
-		let blockWidth = Constants.getBlockWidth();
-		let ballRadius = Constants.getBallRadius();
 
 		do TextWriter.writeInfoAboutGame();
 	
-		let bricks = bricks.getBricks();
 		return;
 	}
 
@@ -45,7 +40,7 @@ class BreakBricksGame {
 		while((playerSpeed = "") | (playerSpeed > 8) | (playerSpeed < 1)) 
 		{
 			do TextWriter.WriteInputRequest();
-			do Sys.wait(2000);
+			do Sys.wait(15000);
 			do Screen.clearScreen();
 			do Output.moveCursor(0, 0);
 			let playerSpeed = Keyboard.readLine(TextWriter.getEnterSpeedText());
@@ -58,7 +53,7 @@ class BreakBricksGame {
 		while((playerRowCount = "") | (playerRowCount > 19) | (playerRowCount < 1)) 
 		{
 			do TextWriter.WriteInputRequest();
-			do Sys.wait(2000);
+			do Sys.wait(15000);
 			do Screen.clearScreen();
 			do Output.moveCursor(0, 0);
 			let playerRowCount = Keyboard.readLine(TextWriter.getEnterRowsText());
@@ -76,7 +71,6 @@ class BreakBricksGame {
 		 do paddle.dispose();
 		 do counter.dispose();
 		 do bricks.dispose();
-		 //do Memory.deAlloc(this);
 		 return;
 	}
 
@@ -134,75 +128,15 @@ class BreakBricksGame {
 
 	// Проверяем столкновение мяча с платформой/кирпичиками и не конец ли игры
 	method void checkAllConditions() {
-		var int posY, posX;
-		var int speedX, speedY;
-
-		let posX = ball.getX();
-		let posY = ball.getY();
-		let speedX = ball.getSpeedX();
-		let speedY = ball.getSpeedY();
-
-		do checkPaddleCollision(posX, posY, speedY);
-		do checkBrickCollision(posX, posY, speedX, speedY);
+	
+		do Checks.init(ball, counter, paddle, speed, bricks, rowsCount);
+		do Checks.checkPaddleCollision();
+		do Checks.checkBrickCollision();
 		do checkGameOver(ball);
 		do checkWinning(counter);
 		do Sys.wait(15);
 		return;
 	}
-
-	// Проверка столкновения мяча с платформой
-	method void checkPaddleCollision(int posX, int posY, int speedY) {
-		var int paddleX, paddleY;
-		
-		let paddleX = paddle.getX();
-		let paddleY = paddle.getY();
-
-		if ((posY > (paddleY - speed)) & (posY < (paddleY + speed)) & (posX > (paddleX - 2)) & (posX < (paddleX + 25))) {
-			let speedY = -speedY;
-			do ball.setSpeedY(speedY);
-		}				
-		return;
-	}
-
-	// Проверка столкновения мяча с блоком
-	method void checkBrickCollision(int posX, int posY, int speedX, int speedY) {
-    var int i, j;
-    var Brick brick;
-    var int brickX, brickY;
-	var int nextPosX, nextPosY;
-
-    let j = 0;
-    while (j < rowsCount) {
-        let i = 0;
-        while (i < bricksInRowCount) {
-            let brick = bricks[i + (j * bricksInRowCount)];
-
-            if (~(brick = null)) {
-                let brickX = brick.getX();
-                let brickY = brick.getY();
-
-				let nextPosX = posX + speedX;
-                let nextPosY = posY + speedY;
-
-                if ((((nextPosY + ballRadius) > brickY) & ((nextPosY - ballRadius) < (brickY + blockHeight)) & 
-                    ((nextPosX + ballRadius) > brickX) & ((nextPosX - ballRadius) < (brickX + blockWidth)))) {
-
-                    do ball.setSpeedY(-speedY);
-
-                    do brick.erase();
-                    do brick.dispose();
-
-                    do counter.add();
-
-                    let bricks[i + (j * bricksInRowCount)] = null;
-                }
-            }
-            let i = i + 1;
-        }
-        let j = j + 1;
-    }
-    return;
-}
 
 	// Проверка на то, что игрок проиграл
 	method void checkGameOver(Ball ball) {
@@ -227,6 +161,4 @@ class BreakBricksGame {
 		}
 		return;
 	}
-
-	
 }
