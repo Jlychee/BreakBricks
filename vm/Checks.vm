@@ -1,0 +1,228 @@
+function Checks.init 0
+push argument 0
+pop static 0
+push argument 1
+pop static 2
+push argument 2
+pop static 1
+push argument 4
+pop static 3
+push argument 3
+pop static 4
+push constant 17
+pop static 9
+push argument 5
+pop static 10
+call Constants.getBrickHeight 0
+pop static 12
+call Constants.getBrickWidth 0
+pop static 13
+call Constants.getBallRadius 0
+pop static 11
+push static 0
+call Ball.getX 1
+pop static 5
+push static 0
+call Ball.getY 1
+pop static 6
+push static 0
+call Ball.getSpeedX 1
+pop static 7
+push static 0
+call Ball.getSpeedY 1
+pop static 8
+push constant 2
+pop static 14
+push constant 5
+pop static 15
+push constant 0
+return
+function Checks.checkPaddleCollision 2
+push static 1
+call Paddle.getX 1
+pop local 0
+push static 1
+call Paddle.getY 1
+pop local 1
+push static 6
+push local 1
+push static 8
+sub
+gt
+push static 6
+push local 1
+push static 8
+add
+lt
+and
+push static 5
+push local 0
+push constant 5
+sub
+gt
+and
+push static 5
+push local 0
+push constant 25
+add
+lt
+and
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push static 8
+neg
+pop static 8
+push static 0
+push static 8
+call Ball.setSpeedY 2
+pop temp 0
+label IF_FALSE0
+push constant 0
+return
+function Checks.checkBrickCollision 10
+push static 3
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+return
+label IF_FALSE0
+push static 12
+push static 15
+add
+pop local 8
+push static 13
+push static 15
+add
+pop local 7
+push static 11
+push static 14
+add
+pop local 9
+push constant 0
+pop local 1
+label WHILE_EXP0
+push local 1
+push static 10
+lt
+not
+if-goto WHILE_END0
+push constant 0
+pop local 0
+label WHILE_EXP1
+push local 0
+push static 9
+lt
+not
+if-goto WHILE_END1
+push local 0
+push local 1
+push static 9
+call Math.multiply 2
+add
+push static 3
+add
+pop pointer 1
+push that 0
+pop local 2
+push local 2
+push constant 0
+eq
+not
+push static 3
+push constant 0
+eq
+not
+and
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push local 2
+call Brick.getX 1
+pop local 3
+push local 2
+call Brick.getY 1
+pop local 4
+push static 5
+push static 7
+add
+pop local 5
+push static 6
+push static 8
+add
+pop local 6
+push local 6
+push local 9
+add
+push local 4
+gt
+push local 6
+push local 9
+sub
+push local 4
+push local 8
+add
+lt
+and
+push local 5
+push local 9
+add
+push local 3
+gt
+and
+push local 5
+push local 9
+sub
+push local 3
+push local 7
+add
+lt
+and
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push static 0
+push static 8
+neg
+call Ball.setSpeedY 2
+pop temp 0
+push local 2
+call Brick.erase 1
+pop temp 0
+push local 2
+call Brick.dispose 1
+pop temp 0
+push static 2
+call Counter.add 1
+pop temp 0
+push local 0
+push local 1
+push static 9
+call Math.multiply 2
+add
+push static 3
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+label IF_FALSE2
+label IF_FALSE1
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP1
+label WHILE_END1
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return

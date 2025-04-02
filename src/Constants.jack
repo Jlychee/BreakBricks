@@ -10,10 +10,8 @@ class Constants {
         let brickWidth = 20;
         let brickHeight = 5;
         let rightBorderX = 480;
-
         let leftBorderX = 7;
         let ballRadius = 3;
-
         let leftBorderY = 5;
 
         return ;

@@ -234,6 +234,4 @@ class BreakBricksGame {
 		}
 		return;
 	}
-
-	
 }
