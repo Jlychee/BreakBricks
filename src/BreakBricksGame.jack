@@ -40,38 +40,13 @@ class BreakBricksGame {
 
 	// Начало игры: спрашиваем желаемую скорость мяча и количество рядов блоков
 	method void startOfTheGame() {
-		var string playerSpeed;
-		var string playerRowCount;
 		do Output.moveCursor(0, 0);
-		let playerSpeed = Keyboard.readLine(TextWriter.getEnterSpeedText());
-		let playerSpeed = String.intValue(playerSpeed);
-		while((playerSpeed > 6) | (playerSpeed < 1)) 
-		{
-			do TextWriter.WriteInputRequest();
-			do Sys.wait(2000);
-			do Screen.clearScreen();
-			do Output.moveCursor(0, 0);
-			let playerSpeed = Keyboard.readLine(TextWriter.getEnterSpeedText());
-			let playerSpeed = String.intValue(playerSpeed);
-		}
-		let speed = playerSpeed;
-
-		let playerRowCount = Keyboard.readLine(TextWriter.getEnterRowsText());
-		let playerRowCount = String.intValue(playerRowCount);
-		while((playerRowCount > 10) | (playerRowCount < 1)) 
-		{
-			do TextWriter.WriteInputRequest();
-			do Sys.wait(2000);
-			do Screen.clearScreen();
-			do Output.moveCursor(0, 0);
-			let playerRowCount = Keyboard.readLine(TextWriter.getEnterRowsText());
-			let playerRowCount = String.intValue(playerRowCount);
-		}
-		let rowsCount = playerRowCount;
-
+		let speed = readValue(TextWriter.getEnterSpeedText(), 6);
+		let rowsCount = readValue(TextWriter.getEnterRowsText(), 10);
 		do Screen.clearScreen();
 		return;
-	}
+  }
+
 
 	// Освобождение памяти
 	method void dispose() {
@@ -81,6 +56,23 @@ class BreakBricksGame {
 		 do bricks.dispose();
 		 return;
 	}
+
+	method int readValue(string message, int maxValue) {
+		var string value;
+		let value = Keyboard.readLine(message);
+		let value = String.intValue(value);
+		while((value > maxValue) | (value < 1)) 
+		{
+		do TextWriter.WriteInputRequest();
+		do Sys.wait(11000);
+		do Screen.clearScreen();
+		do Output.moveCursor(0, 0);
+		let value = Keyboard.readLine(message);
+		let value = String.intValue(value);
+		}
+		return value;
+  }
+
 
 	// Ждём, когда игрок нажмёт backspace и начинаем игру заново
 	method void waitRestart() {
